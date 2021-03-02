@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Flip</title>
+		<style>
+			/*@keyframes myAnimation {
+				from {
+				}
+				to {
+					transform: rotateZ(360deg);
+				}
+			}*/
+		
+			#myDiv {
+				background-image: url("../../Lab1/balkani.gif");
+				background-repeat: no-repeat;
+				width: 520px;
+				height: 347px;
+				
+			}
+			#myDiv:hover {
+				transform: rotateY(180deg);
+				/*animation-name: myAnimation;
+				animation-duration: 7s;*/ /* we have to set this, bc the default duration is 0 */
+			}
+			
+		</style>
+	</head>
+	
+	<body>
+		<div id = "myDiv"></div>
+	</body>
+</html>
