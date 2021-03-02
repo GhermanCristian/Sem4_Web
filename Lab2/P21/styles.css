@@ -1,0 +1,49 @@
+#div1 {
+	background-color: red;
+	width: 1000px;
+	min-height: 1000px;
+}
+
+#div2 {
+	background-color: blue;
+	width: 750px;
+	min-height: 750px;
+	position: absolute;
+	top: 125px;
+	left: 125px;
+}
+
+#div3 {
+	background-color: green;
+	width: 500px;
+	min-height: 500px;
+	position: absolute;
+	top: 250px; /* 125 from div2 + 125 from this */
+	left: 250px;
+}
+
+#div4 {
+	background-color: yellow;
+	width: 250px;
+	min-height: 250px;
+	position: absolute;
+	top: 375px; /* 250 from the div3 + 125 from this */
+	left: 375px;
+	z-index: 1; /* show this above others; because it was the first in the HTML, it was covered by 1 other div, so we have to 'bring it up'*/
+}
+
+#div4:hover + #div1{ /* here we can use + because it's the next div after div4 (we could've used ~ as well)*/
+	background-color: yellow;
+}
+
+#div4:hover ~ #div2{ /* here we have to use ~ because there are other divs between div4 and these ones*/
+	background-color: green;
+}
+
+#div4:hover ~ #div3{
+	background-color: blue;
+}
+
+#div4:hover{
+	background-color: red;
+}
