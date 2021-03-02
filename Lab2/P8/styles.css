@@ -1,0 +1,20 @@
+@keyframes myAnimation {
+	from {
+	}
+	to {
+		transform: rotateY(180deg);
+	}
+}
+
+#myDiv {
+	background-image: url("../../Lab1/balkani.gif");
+	background-repeat: no-repeat;
+	width: 520px;
+	height: 347px;
+	
+}
+#myDiv:hover {
+	transform: rotateY(180deg);
+	/*animation-name: myAnimation;
+	animation-duration: 7s;*/ /* we have to set this, bc the default duration is 0 */
+}
