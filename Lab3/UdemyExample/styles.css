@@ -1,41 +1,66 @@
 header {
 	background-color: white;
 	height: fit-content;
-	position: relative;
+	display: table;
+	width: 100%;
+}
+
+#headerLogo, #headerText, #searchBar, #searchIcon, #shoppingCart, .headerLogButton, .headerLinkButton {
+	padding-left: 3px;
+	padding-right: 3px;
+	display: table-cell;
+	vertical-align: middle;
 }
 
 #headerLogo {
-	padding: 5px;
-	display: inline;
-}
-
-#headerText {
-	font-family: Arial;
-	font-weight: 200;
-	display: inline;
-	position: absolute;
-	margin-left: 10px;
-	top: 50%;
-	transform: translateY(-50%);
-}
-
-#searchBar {
-	position: absolute;
-	left: 230px;
-	margin-left: 20px;
-	top: 50%;
-	transform: translateY(-50%);
-	border-radius: 25px;
-	border: 1.5px solid black;
-	padding: 10px;
-	display: inline-block;
-	min-width: fill;
-}
-
-#searchBar #headerText {
-	color: gray;
+	
 }
 
 #searchIcon {
 	
+}
+
+.headerText {
+	font-weight: 400;
+	white-space: nowrap;
+	color: black;
+	font-family: segoe ui, Helvetica, Arial;
+}
+
+.headerLogButton {
+	font-weight: 700;
+	min-width: 100px;
+	max-width: 200px;
+	min-height: 50px;
+	max-height: 100px;
+	border-radius: 5px;
+}
+
+.loginButton {
+	background-color: transparent;
+	color: #0f7c90;
+	border-color: #0f7c90;
+	border-width: 2px;
+}
+
+.signUpButton {
+	background-color: #0f7c90;
+	color: white;
+}
+
+.headerLinkButton {
+	text-decoration: none;
+	padding-left: 15px;
+}
+
+#searchBar {
+	border: 1.5px solid black;
+	border-radius: 45px;
+	width: 100%;
+	padding-left: 15px;
+}
+
+#shoppingCart {
+	padding-left: 15px;
+	padding-right: 15px;
 }
