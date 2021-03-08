@@ -1,0 +1,41 @@
+header {
+	background-color: white;
+	height: fit-content;
+	position: relative;
+}
+
+#headerLogo {
+	padding: 5px;
+	display: inline;
+}
+
+#headerText {
+	font-family: Arial;
+	font-weight: 200;
+	display: inline;
+	position: absolute;
+	margin-left: 10px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#searchBar {
+	position: absolute;
+	left: 230px;
+	margin-left: 20px;
+	top: 50%;
+	transform: translateY(-50%);
+	border-radius: 25px;
+	border: 1.5px solid black;
+	padding: 10px;
+	display: inline-block;
+	min-width: fill;
+}
+
+#searchBar #headerText {
+	color: gray;
+}
+
+#searchIcon {
+	
+}
