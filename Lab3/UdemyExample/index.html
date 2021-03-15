@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang = "en">
 	<head>
+		<meta charset = "utf-8"/>
 		<title>The Web Developer Bootcamp: Learn HTML, CSS, Node, and More! | Udemy</title>
 		<link rel="stylesheet" href="styles.css">
 	</head>
@@ -28,10 +29,14 @@
 			<a id = "shoppingCart" href = "https://udemy.com/cart">
 				<img src = "shoppingCart.jpg" alt = "ShoppingCart" width = "40" height = "40">
 			</a>
+
+			<form action = "https://www.udemy.com/join/login-popup/?locale=en_US&response_type=html&next=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F" method = "get">
+				<button type = "submit" class = "headerLogButton loginButton">Log in</button>
+			</form>
 			
-			<a href = "https://www.udemy.com/join/login-popup/?locale=en_US&response_type=html&next=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F"><button class = "headerLogButton loginButton">Log in</button></a>
-			
-			<a href = "https://www.udemy.com/join/signup-popup/?locale=en_US&response_type=html&next=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F"><button class = "headerLogButton signUpButton">Sign up</button></a>
+			<form action = "https://www.udemy.com/join/signup-popup/?locale=en_US&response_type=html&next=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F" method = "get">
+				<button type = "submit" class = "headerLogButton signUpButton">Sign up</button>
+			</form>
 		</header>
 		
 		<main>
@@ -50,76 +55,79 @@
 					<a id = "instructorLink" href = "https://www.udemy.com/course/the-web-developer-bootcamp/#instructor-1">Colt Steele</a>
 				</div>
 				
-				<img id = "upperSectionImage" src = "lastUpdated.jpg" alt = "Last Updated" width = "23" height = "23">
+				<img class = "upperSectionImage" src = "lastUpdated.jpg" alt = "Last Updated" width = "23" height = "23">
 				<div class = "descriptionText descriptionTextInline">
 					Last updated 3/2021
 				</div>
-				<img id = "upperSectionImage" src = "language.jpg" alt = "Language" width = "23" height = "23">
+				<img class = "upperSectionImage" src = "language.jpg" alt = "Language" width = "23" height = "23">
 				<div class = "descriptionText descriptionTextInline">English</div>
 				
-				<img id = "upperSectionImage" src = "audioLanguage.jpg" alt = "Audio Language" width = "23" height = "23">
+				<img class = "upperSectionImage" src = "audioLanguage.jpg" alt = "Audio Language" width = "23" height = "23">
 				<div class = "descriptionText descriptionTextInline">
 					English [Auto], French [Auto],
 					<div class = "underlinedDescriptionText">5 more</div>
 				</div>
 				<br>
 				
-				<a href = "https://www.udemy.com/join/signup-popup/?locale=en_US&response_type=html&next=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F%3Fxref%3Dwish%26courseId%3D625204&return_link=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F&source=course_landing_page">
-					<button id = "upperSectionButton">
+				<form class = "upperInlineForm" action = "https://www.udemy.com/join/signup-popup/?locale=en_US&response_type=html&next=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F%3Fxref%3Dwish%26courseId%3D625204&return_link=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F&source=course_landing_page" method = "get">
+					<button type = "submit" class = "upperSectionButton">
 						Wishlist
-						<img id = "upperSectionImage" src = "heart.jpg" alt = "Heart" width = "20" height = "20">
+						<img class = "upperSectionImage" src = "heart.jpg" alt = "Heart" width = "20" height = "20">
 					</button>
-				</a>
+				</form>
 				
-				<button id = "upperSectionButton">
+				<button class = "upperSectionButton">
 					Share
-					<img id = "upperSectionImage" src = "shareArrow.jpg" alt = "Share arrow" width = "27" height = "17">
+					<img class = "upperSectionImage" src = "shareArrow.jpg" alt = "Share arrow" width = "27" height = "17">
 				</button>
 				
-				<a href = "https://www.udemy.com/join/signup-popup/?locale=en_US&response_type=html&next=%2Fgift%2Fthe-web-developer-bootcamp%2F%3FcouponCode%3DKEEPLEARNING&return_link=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F&source=course_landing_page">
-					<button id = "upperSectionButton">Gift this course</button>
-				</a>
+				<form class = "upperInlineForm" action = "https://www.udemy.com/join/signup-popup/?locale=en_US&response_type=html&next=%2Fgift%2Fthe-web-developer-bootcamp%2F%3FcouponCode%3DKEEPLEARNING&return_link=https%3A%2F%2Fwww.udemy.com%2Fcourse%2Fthe-web-developer-bootcamp%2F&source=course_landing_page" method = "get">
+					<button type = "submit" class = "upperSectionButton">
+						Gift this course
+					</button>
+				</form>
+				
 			</section>
 			
 			<section id = "midSection">
 				<div id = "midSectionTitle">What you'll learn</div>
 				<table id = "learnTable">
 					<tr>
-						<td id = "learnTableRow">
+						<td class = "learnTableRow">
 							<img src = "checkMark.jpg" alt = "Check mark" width = "20" height = "20">
 							The ins and outs of HTML5, CSS3, and Modern JavaScript for 2021
 						</td>
-						<td id = "learnTableRow">
+						<td class = "learnTableRow">
 							<img src = "checkMark.jpg" alt = "Check mark" width = "20" height = "20">
 							Make REAL web applications using cutting-edge technologies
 						</td>
 					</tr>
 					<tr>
-						<td id = "learnTableRow">
+						<td class = "learnTableRow">
 							<img src = "checkMark.jpg" alt = "Check mark" width = "20" height = "20">
 							Create responsive, accessible, and beautiful layouts
 						</td>
-						<td id = "learnTableRow">
+						<td class = "learnTableRow">
 							<img src = "checkMark.jpg" alt = "Check mark" width = "20" height = "20">
 							Recognize and prevent common security exploits like SQL-Injection & XSSs
 						</td>
 					</tr>
 					<tr>
-						<td id = "learnTableRow">
+						<td class = "learnTableRow">
 							<img src = "checkMark.jpg" alt = "Check mark" width = "20" height = "20">
 							Continue to learn and grow as a developer, long after the course ends
 						</td>
-						<td id = "learnTableRow">
+						<td class = "learnTableRow">
 							<img src = "checkMark.jpg" alt = "Check mark" width = "20" height = "20">
 							Create a blog application from scratch using Node, Express, and MongoDB
 						</td>
 					</tr>
 					<tr>
-						<td id = "learnTableRow">
+						<td class = "learnTableRow">
 							<img src = "checkMark.jpg" alt = "Check mark" width = "20" height = "20">
 							Create a complicated yelp-like application from scratch
 						</td>
-						<td id = "learnTableRow">
+						<td class = "learnTableRow">
 							<img src = "checkMark.jpg" alt = "Check mark" width = "20" height = "20">
 							Deploy your applications and work with cloud databases
 						</td>

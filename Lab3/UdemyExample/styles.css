@@ -12,10 +12,6 @@ header {
 	padding-top: 3px;
 }
 
-main {
-	;
-}
-
 a {
 	text-decoration: none;
 }
@@ -24,10 +20,6 @@ a {
 	padding-left: 3px;
 	padding-right: 3px;
 	align-self: center;
-}
-
-#headerLogo {
-	
 }
 
 #searchIcon {
@@ -66,28 +58,37 @@ a {
 }
 
 .headerLogButton {
+    -moz-appearance: button;
+	appearance: button;
 	font-weight: 700;
+	font-size: 0.9rem;
 	min-width: 100px;
 	max-width: 200px;
-	margin-top: 0.5rem;
-	height: 2.5rem;
+	margin-top: 5px;
+	height: 2.6rem;
 	border-radius: 5px;
 	font-family: segoe ui;
+	line-height: 2.8;
 }
 
 .loginButton {
 	background-color: transparent;
 	color: #5624d0;
+	text-align: center;
 	border-width: 1px;
 	border-color: #5624d0;
 }
 
-.signUpButton {
+.signUpButton{
 	background-color: #5624d0;
 	color: white;
-	border-style: none;
+	text-align: center;
 	margin-left: 5px;
 	margin-right: 10px;
+}
+
+#signUpButtonText {
+	color: white;
 }
 
 /*
@@ -162,24 +163,30 @@ a {
 	text-decoration: underline;
 }
 
-#upperSectionImage {
+.upperSectionImage {
 	margin-bottom: -5px;
 }
 
-#upperSectionButton {
+.upperInlineForm {
+	display: inline;
+}
+
+.upperSectionButton {
+	display: inline;
 	background-color: transparent;
 	text-decoration: none;
 	font-weight: 700;
-	color: white;
 	min-width: 100px;
 	max-width: 200px;
 	height: 2.5rem;
-	border-width: 1px;
+	border-width: 1.5px;
 	border-radius: 5px;
+	border-color: white;
 	margin-top: 20px;
 	margin-right: 5px;
 	padding-left: 15px;
 	padding-right: 15px;
+	color: white;
 }
 
 /*
@@ -215,7 +222,7 @@ a {
 	margin-left: -25px;
 }
 
-#learnTableRow {
+.learnTableRow {
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 15px;
