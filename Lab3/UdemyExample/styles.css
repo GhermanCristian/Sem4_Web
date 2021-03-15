@@ -1,15 +1,29 @@
+html {
+	font-family: segoe ui, Helvetica, Arial;
+}
+
 header {
 	background-color: white;
 	height: fit-content;
-	display: table;
+	display: flex;
 	width: 100%;
+	padding-bottom: 10px;
+	padding-left: 5px;
+	padding-top: 3px;
+}
+
+main {
+	;
+}
+
+a {
+	text-decoration: none;
 }
 
 #headerLogo, #headerText, #searchBar, #searchIcon, #shoppingCart, .headerLogButton, .headerLinkButton {
 	padding-left: 3px;
 	padding-right: 3px;
-	display: table-cell;
-	vertical-align: middle;
+	align-self: center;
 }
 
 #headerLogo {
@@ -17,50 +31,351 @@ header {
 }
 
 #searchIcon {
-	
+	padding-top: 10px;
+	padding-left: 10px;
 }
 
 .headerText {
 	font-weight: 400;
+	font-size: 14px;
 	white-space: nowrap;
 	color: black;
-	font-family: segoe ui, Helvetica, Arial;
+}
+
+#searchBar {
+	border: 0.7px solid gray;
+	border-radius: 45px;
+	width: 100%;
+	margin-left: 10px;
+	padding-left: 15px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+#searchBar .headerText {
+	color: gray;
+}
+
+#shoppingCart {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.headerLinkButton {
+	padding-left: 15px;
 }
 
 .headerLogButton {
 	font-weight: 700;
 	min-width: 100px;
 	max-width: 200px;
-	min-height: 50px;
-	max-height: 100px;
+	margin-top: 0.5rem;
+	height: 2.5rem;
 	border-radius: 5px;
+	font-family: segoe ui;
 }
 
 .loginButton {
 	background-color: transparent;
-	color: #0f7c90;
-	border-color: #0f7c90;
-	border-width: 2px;
+	color: #5624d0;
+	border-width: 1px;
+	border-color: #5624d0;
 }
 
 .signUpButton {
-	background-color: #0f7c90;
+	background-color: #5624d0;
+	color: white;
+	border-style: none;
+	margin-left: 5px;
+	margin-right: 10px;
+}
+
+/*
+*
+*
+*
+*
+*
+*/
+
+.upperTextSection {
+	font-weight: 700;
+	background-color: #1e1e1c;
+	color: white;
+	width: 87.25%;
+	padding-top: 2rem;
+	padding-left: 210px;
+	padding-bottom: 2.5rem;
+	margin-left: -10px; /*these are weird, but there were some white margins in the left / right*/
+	margin-right: -10px;
+	min-height: 2.3rem;
+}
+
+#developmentText {
+	font-weight: 700;
+	letter-spacing: -.02rem;
+	line-height: 1.2;
+	font-size: 0.9rem;
+	color: #b7a9e5;
+}
+
+#upperTitleText {
+	font-size: 2rem;
+	margin-bottom: .4rem;
+	padding-top: 1rem;
+}
+
+#subtitleText {
+	font-weight: 400;
+	font-size: 1.2rem;
+	margin-bottom: 1.2rem;
+	max-width: 44rem;
+}
+
+#ratingImage {
+	display: inline;
+	margin-bottom: -3px;
+	margin-left: -3px;
+}
+
+.descriptionText {
+	font-weight: 400;
+	font-size: 0.9rem;
+	padding-bottom: 0.5rem;
+	margin-top: 10px;
+}
+
+.descriptionTextInline {
+	display: inline;
+	margin-right: 15px;
+	margin-bottom: 20px;
+}
+
+.underlinedDescriptionText {
+	text-decoration: underline;
+	display: inline;
+}
+
+#instructorLink {
+	font-weight: 400;
+	color: #b7a9e5;
+	text-decoration: underline;
+}
+
+#upperSectionImage {
+	margin-bottom: -5px;
+}
+
+#upperSectionButton {
+	background-color: transparent;
+	text-decoration: none;
+	font-weight: 700;
+	color: white;
+	min-width: 100px;
+	max-width: 200px;
+	height: 2.5rem;
+	border-width: 1px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-right: 5px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/*
+*
+*
+*
+*
+*
+*/
+
+#midSection {
+	background-color: #f7f9fa;
+	border: 1px solid #dcdacb;
+	border-radius: 4px;
+	min-height: 2rem;
+	width: 45%;
+	margin-left: 200px;
+	margin-top: 35px;
+	padding: 20px;
+}
+
+#midSectionTitle {
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: -.02rem;
+	font-size: 1.45rem;
+	margin-bottom: 15px;
+}
+
+#learnTable {
+	border-collapse: separate;
+	border-spacing: 25px 0px;
+	margin-left: -25px;
+}
+
+#learnTableRow {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 15px;
+	color: #3c3b37;
+	text-align: left;
+	letter-spacing: normal;
+	font-weight: 400;
+	line-height: 1.3;
+	font-size: 0.9rem;
+	max-width: 30rem;
+}
+
+#showMoreText {
+	color: #5624d0;
+	font-weight: 700;
+	line-height: 1.2;
+	letter-spacing: -.02rem;
+	font-size: 0.9rem;
+	padding-top: 15px;
+	padding-left: 15px;
+}
+
+#showMoreIcon {
+	padding-left: 10px;
+	transform: translateY(15%);
+}
+
+/*
+*
+*
+*
+*
+*
+*/
+
+#sideSection {
+	position: absolute;
+	left: 63%;
+	top: 15%;
+	width: 350px;
+	min-height: 500px;
+	background-color: white;
+	border: 1px groove gray;
+}
+
+#sideSectionTop {
+	background-image: url("videoPreview.JPG");
+	width: 100%;
+	height: 195px;
+	color: white;
+	font-weight: 700;
+}
+
+#sideSectionTopText {
+	position: relative;
+	top: 80%;
+	left: 29%;
+}
+
+#sideSectionMid {
+	padding-left: 25px;
+	padding-top: 20px;
+}
+
+#priceTextBold {
+	font-size: 2rem;
+	font-weight: 700;
+	display: inline;
+	margin-right: 5px;
+}
+
+#priceTextStrikeThrough {
+	font-size: 1.1rem;
+	font-weight: 300;
+	text-decoration: line-through;
+	display: inline;
+	color: #73726c;
+	margin-right: 5px;
+}
+
+#priceTextNormal {
+	display: inline;
+	color: #1c1d1f;
+	margin-right: 5px;
+}
+
+#daysLeftText {
+	font-weight: 400;
+	line-height: 1.4;
+	font-size: 0.9rem;
+	display: inline;
+	color: #b32d0f;
+}
+
+#daysLeftTextBold {
+	font-weight: 700;
+	display: inline;
+}
+
+.midSectionButton {
+	min-height: 50px;
+	max-height: 75px;
+	width: 92%;
+	margin-bottom: 8px;
+	font-weight: 700;
+	font-size: 0.95rem;
+	border-radius: 4px;
+	border-color: #5624d0;
+	border-width: 1px;
+}
+
+.addToCartButton {
+	margin-top: 15px;
+	background-color: #a435f0;
 	color: white;
 }
 
-.headerLinkButton {
-	text-decoration: none;
-	padding-left: 15px;
+.buyNowButton {
+	background-color: transparent;
+	color: #5624d0;
 }
 
-#searchBar {
-	border: 1.5px solid black;
-	border-radius: 45px;
-	width: 100%;
-	padding-left: 15px;
+.tryUdemyForBussinessButton {
+	
 }
 
-#shoppingCart {
-	padding-left: 15px;
-	padding-right: 15px;
+.smallSideSectionText {
+	color: #1c1d1f;
+	font-size: 0.75rem;
+	padding-left: 65px;
+	padding-top: 10px;
+	padding-bottom: 20px;
+	font-weight: 400;
+}
+
+.unlimitedAccessText {
+	padding-left: 17px;
+	text-align: center;
+	max-width: 80%;
+}
+
+#orSectionSeparator {
+	width: 92%;
+	color: #6a6f73;
+	text-align: center;
+	font-size: 0.9rem;
+	border-bottom: 1px solid #C0C0C0; 
+	line-height: 0.25rem;
+	padding-top: 12px;
+	margin-bottom: 25px;
+}
+
+#orSectionSeparatorSpan {
+	background-color: white;
+	padding: 0 10px;
+}
+
+#courseIncludesText {
+	font-weight: 700;
+	font-size: 1rem;
+	color: black;
+	padding-bottom: 15px;
 }
