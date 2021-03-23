@@ -9,41 +9,36 @@
 	
 	<body>
 		<div class = "dropdown">
-			<button onclick = "showMenuDropdown('myDropdown')" id = "mainMenuButton">Main menu</button>
+			<button onclick = "showMenuByClass('submenu')" id = "mainMenuButton">Main menu</button>
 			<div class = "myDropdownClass" id = "myDropdown">
-				<button onclick = "showMenuDropdown('submenu1')" class = "submenu" id = "submenu1">
-					Submenu 1
-					<div class = "secondLevelDropdown">comp1</div>
-					<div class = "secondLevelDropdown">comp2</div>
-					<div class = "secondLevelDropdown">comp3</div>
-				</button>
-				<button onclick = "showMenuDropdown('submenu2')" class = "submenu" id = "submenu2">
-					Submenu 2
-					<div class = "secondLevelDropdown">comp1</div>
-					<div class = "secondLevelDropdown">comp2</div>
-					<div class = "secondLevelDropdown">comp3</div>
-					<div class = "secondLevelDropdown">comp4</div>
-					<div class = "secondLevelDropdown">comp5</div>
-				</button>
-				<button onclick = "showMenuDropdown('submenu3')" class = "submenu" id = "submenu3">
-					Submenu 3
-					<div class = "secondLevelDropdown">comp1</div>
-					<div class = "secondLevelDropdown">comp2</div>
-					<div class = "secondLevelDropdown">comp3</div>
-				</button>
-				<button onclick = "showMenuDropdown('submenu4')" class = "submenu" id = "submenu4">
-					Submenu 4
-					<div class = "secondLevelDropdown">comp1</div>
-					<div class = "secondLevelDropdown">comp2</div>
-					<div class = "secondLevelDropdown">comp3</div>
-					<div class = "secondLevelDropdown">comp4</div>
-				</button>
-				<button onclick = "showMenuDropdown('submenu5')" class = "submenu" id = "submenu5">
-					Submenu 5
-					<div class = "secondLevelDropdown">comp1</div>
-					<div class = "secondLevelDropdown">comp2</div>
-					<div class = "secondLevelDropdown">comp3</div>
-				</button>
+				<button onclick = "showMenuByClass('submenu1')" class = "submenu" id = "submenuButton1">Submenu 1</button>
+				<div class = "submenu1 secondLevelDropdown">comp1</div>
+				<div class = "submenu1 secondLevelDropdown">comp2</div>
+				<div class = "submenu1 secondLevelDropdown">comp3</div>
+				
+				<button onclick = "showMenuByClass('submenu2')" class = "submenu" id = "submenuButton2">Submenu 2</button>
+				<div class = "submenu2 secondLevelDropdown">comp1</div>
+				<div class = "submenu2 secondLevelDropdown">comp2</div>
+				<div class = "submenu2 secondLevelDropdown">comp3</div>
+				<div class = "submenu2 secondLevelDropdown">comp4</div>
+				<div class = "submenu2 secondLevelDropdown">comp5</div>
+
+				<button onclick = "showMenuByClass('submenu3')" class = "submenu" id = "submenuButton3">Submenu 3</button>
+				<div class = "submenu3 secondLevelDropdown">comp1</div>
+				<div class = "submenu3 secondLevelDropdown">comp2</div>
+				<div class = "submenu3 secondLevelDropdown">comp3</div>
+
+				<button onclick = "showMenuByClass('submenu4')" class = "submenu" id = "submenuButton4">Submenu 4</button>
+				<div class = "submenu4 secondLevelDropdown">comp1</div>
+				<div class = "submenu4 secondLevelDropdown">comp2</div>
+				<div class = "submenu4 secondLevelDropdown">comp3</div>
+				<div class = "submenu4 secondLevelDropdown">comp4</div>
+
+				<button onclick = "showMenuByClass('submenu5')" class = "submenu" id = "submenuButton5">Submenu 5</button>
+				<div class = "submenu5 secondLevelDropdown">comp1</div>
+				<div class = "submenu5 secondLevelDropdown">comp2</div>
+				<div class = "submenu5 secondLevelDropdown">comp3</div>
+
 			</div>
 		</div>
 	</body>
