@@ -1,4 +1,8 @@
- /* Dropdown Button */
+html {
+	font-family: segoe ui, arial;
+	font-size: 18px;
+}
+
 #mainMenuButton {
 	background-color: #3498DB;
 	color: white;
@@ -8,7 +12,6 @@
 	cursor: pointer;
 }
 
-/* The container <div> - needed to position the dropdown content */
 .dropdown {
 	position: relative;
 	display: inline-block;
@@ -31,17 +34,11 @@
 	min-height: 30px;
 }
 
-/* text inside the dropdown */
 .submenu {
 	display: none;
 	color: black;
 	padding: 12px 16px;
 	text-decoration: none;
 	width: 100%;
-}
-
-/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
-.show {
-	display:block;
 }
 
