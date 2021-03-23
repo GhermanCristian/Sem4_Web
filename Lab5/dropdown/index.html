@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang = "en">
+	<head>
+		<meta charset = "utf-8"/>
+		<title>dropdown menus</title>
+		<link rel ="stylesheet" href = "styles.css">
+		<script src = "script.js"></script> 
+	</head>
+	
+	<body>
+		<div class = "dropdown">
+			<button onclick = "showMenuDropdown('myDropdown')" id = "mainMenuButton">Main menu</button>
+			<div class = "myDropdownClass" id = "myDropdown">
+				<button onclick = "showMenuDropdown('submenu1')" class = "submenu" id = "submenu1">
+					Submenu 1
+					<div class = "secondLevelDropdown">comp1</div>
+					<div class = "secondLevelDropdown">comp2</div>
+					<div class = "secondLevelDropdown">comp3</div>
+				</button>
+				<button onclick = "showMenuDropdown('submenu2')" class = "submenu" id = "submenu2">
+					Submenu 2
+					<div class = "secondLevelDropdown">comp1</div>
+					<div class = "secondLevelDropdown">comp2</div>
+					<div class = "secondLevelDropdown">comp3</div>
+					<div class = "secondLevelDropdown">comp4</div>
+					<div class = "secondLevelDropdown">comp5</div>
+				</button>
+				<button onclick = "showMenuDropdown('submenu3')" class = "submenu" id = "submenu3">
+					Submenu 3
+					<div class = "secondLevelDropdown">comp1</div>
+					<div class = "secondLevelDropdown">comp2</div>
+					<div class = "secondLevelDropdown">comp3</div>
+				</button>
+				<button onclick = "showMenuDropdown('submenu4')" class = "submenu" id = "submenu4">
+					Submenu 4
+					<div class = "secondLevelDropdown">comp1</div>
+					<div class = "secondLevelDropdown">comp2</div>
+					<div class = "secondLevelDropdown">comp3</div>
+					<div class = "secondLevelDropdown">comp4</div>
+				</button>
+				<button onclick = "showMenuDropdown('submenu5')" class = "submenu" id = "submenu5">
+					Submenu 5
+					<div class = "secondLevelDropdown">comp1</div>
+					<div class = "secondLevelDropdown">comp2</div>
+					<div class = "secondLevelDropdown">comp3</div>
+				</button>
+			</div>
+		</div>
+	</body>
+</html>
