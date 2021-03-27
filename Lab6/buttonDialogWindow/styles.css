@@ -1,0 +1,21 @@
+html {
+	font-family: segoe ui;
+}
+
+#myButton {
+	background-color: blue;
+	color: white;
+	font-size: 15px;
+}
+
+#dialog {
+	display: none;
+	width: 20%;
+	height: 20%;
+	background-color: red;
+	color: white;
+	font-weight: 700;
+	padding: 10%;
+	border: 20px solid black;
+	cursor: ns-resize;
+}
