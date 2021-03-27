@@ -2,8 +2,21 @@ $(document).ready(function() {
 	$("#myButton").click(function() {
 		$("#dialog").toggle();
 	});
-	
-	$(this).mousemove(function(e){
+
+	var doResize = 0;
+	$(this).mousemove(function(e) {
+		if (doResize === 1) {
+			if ($("#dialog:active").length) { // checks if the mouse is also clicked
+				$("#dialog").outerWidth(e.clientX - 8);
+				$("#dialog").outerHeight(e.clientY - 30.4);
+			}
+		}
+	});
+	$(this).mouseup(function(e) {
+		doResize = 0;
+	});
+
+	$(this).mousemove(function(e) {
 		let dialogBox = document.getElementById("dialog");
 		let dialogBoxData = dialogBox.getBoundingClientRect();
 		if (dialogBox.style.display === "" || dialogBox.style.display === "none") {
@@ -24,13 +37,10 @@ $(document).ready(function() {
 		// left and right margins => x - leftMargin in [0; borderWidth] U [width - borderWidth; width], y - topMargin in [0; height]
 		if (((0 <= x && x <= width) && ((0 <= y && y <= borderWidth) || (height - borderWidth <= y && y <= height))) || 
 			(((0 <= x && x <= borderWidth) || (width - borderWidth <= x && x <= width)) && (0 <= y && y <= height))){
-			var myButton = document.getElementById("myButton")
-			myButton.style.backgroundColor = "red";
+			doResize = 1;
 		}
 		else {
-			var myButton = document.getElementById("myButton")
-			myButton.style.backgroundColor = "black";
+			;
 		}
-		
 	});
 })
