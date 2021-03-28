@@ -21,27 +21,29 @@ html {
 	font-weight: 700;
 	text-align: center;
 	padding: 1%;
+	padding-top: 0;
 	border: 2px solid black;
 	overflow: hidden;
 }
 
 #dialogHeader {
-	min-height: 5%;
+	min-height: 20px;
 	width: 100%;
-	position: sticky;
+	position: relative;
 	background-color: transparent;
-	top: 0px;
-	right: 0px;
+	top: 0;
 }
 
 #hideButton {
 	position: absolute;
-	right: 5px;
+	top: 0;
+	right: -15px;
 	border-radius: 10px;
 	cursor: pointer;
 }
 
 #dialogText {
 	overflow: auto;
-	max-height: 97%;
+	max-height: 90%;
+	user-select: none;
 }

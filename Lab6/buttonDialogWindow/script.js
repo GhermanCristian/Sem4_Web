@@ -3,23 +3,26 @@ $(document).ready(function() {
 		$("#dialog").show();
 		$(this).prop("disabled", true);
 		$(this).text("acum nici nu mai poti");
+		$(this).css("cursor", "not-allowed");
 	});
 	
 	$("#hideButton").click(function() {
 		$("#dialog").hide();
 		$("#showButton").prop("disabled", false);
 		$("#showButton").text("nu da click");
+		
 	});
 	
-	//$("#dialogHeader").css({position: 'relative'});
-	//$("#dialogHeader").css({position: 'sticky'});
+	function resize(newWidth, newHeight) {
+		$("#dialog").outerWidth(newWidth);
+		$("#dialog").outerHeight(newHeight);
+	}
 
 	var doResize = 0;
 	$(this).mousemove(function(e) {
 		if (doResize === 1) {
 			if ($("#dialog:active").length) { // checks if the mouse is also clicked
-				$("#dialog").outerWidth(e.clientX - 8);
-				$("#dialog").outerHeight(e.clientY - 30.4);
+				resize(e.clientX - 8, e.clientY - 30.4)
 			}
 		}
 	});
