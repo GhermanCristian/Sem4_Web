@@ -10,7 +10,7 @@ $(document).ready(function() {
 		$("#dialog").hide();
 		$("#showButton").prop("disabled", false);
 		$("#showButton").text("nu da click");
-		
+		$("#showButton").css("cursor", "pointer");
 	});
 	
 	function resize(newWidth, newHeight) {
