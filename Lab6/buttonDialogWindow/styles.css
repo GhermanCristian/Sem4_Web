@@ -2,21 +2,46 @@ html {
 	font-family: segoe ui;
 }
 
-#myButton {
+#showButton {
 	background-color: blue;
 	color: white;
 	font-size: 15px;
+	cursor: pointer;
 }
 
 #dialog {
+	position: relative;
 	display: none;
+	min-width: 5%;
+	min-height: 5%;
 	width: 20%;
 	height: 20%;
 	background-color: red;
 	color: white;
 	font-weight: 700;
 	text-align: center;
-	padding: 10%;
-	border: 20px solid black;
-	cursor: ns-resize;
+	padding: 1%;
+	border: 2px solid black;
+	overflow: hidden;
+}
+
+#dialogHeader {
+	min-height: 5%;
+	width: 100%;
+	position: sticky;
+	background-color: transparent;
+	top: 0px;
+	right: 0px;
+}
+
+#hideButton {
+	position: absolute;
+	right: 5px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+#dialogText {
+	overflow: auto;
+	max-height: 97%;
 }

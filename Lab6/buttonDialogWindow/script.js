@@ -1,7 +1,18 @@
 $(document).ready(function() {
-	$("#myButton").click(function() {
-		$("#dialog").toggle();
+	$("#showButton").click(function() {
+		$("#dialog").show();
+		$(this).prop("disabled", true);
+		$(this).text("acum nici nu mai poti");
 	});
+	
+	$("#hideButton").click(function() {
+		$("#dialog").hide();
+		$("#showButton").prop("disabled", false);
+		$("#showButton").text("nu da click");
+	});
+	
+	//$("#dialogHeader").css({position: 'relative'});
+	//$("#dialogHeader").css({position: 'sticky'});
 
 	var doResize = 0;
 	$(this).mousemove(function(e) {
@@ -27,6 +38,9 @@ $(document).ready(function() {
 		let leftMargin = dialogBoxData.x;
 		let topMargin = dialogBoxData.y;
 		let borderWidth = parseInt(dialogBox.css('border-top-width')); // for now I'll assume that all borders have the same width
+		if (borderWidth < 5) {
+			borderWidth = 5; // if the border is too small, it's almost imposible to click on it
+		}
 		let width = dialogBoxData.width; // dialogBoxData.width = 2 * border + inner width
 		let height = dialogBoxData.height; // same but for heights*/
 		
