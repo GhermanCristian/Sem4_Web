@@ -22,7 +22,8 @@ $(document).ready(function() {
 	$(this).mousemove(function(e) {
 		if (doResize === 1) {
 			if ($("#dialog:active").length) { // checks if the mouse is also clicked
-				resize(e.clientX - 8, e.clientY - 30.4)
+				let position = $("#dialog").position()
+				resize(e.clientX - position.left, e.clientY - position.top)
 			}
 		}
 	});
