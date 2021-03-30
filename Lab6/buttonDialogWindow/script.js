@@ -22,7 +22,9 @@ $(document).ready(function() {
 	$(this).mousemove(function(e) {
 		if (doResize === 1) { // at this point the mouse is clicked (otherwise mouseup would've been triggered => doResize = 0)
 			let position = $("#dialog").position()
-			resize(e.clientX - position.left, e.clientY - position.top)
+			let marginTop = parseInt($("#dialog").css("marginTop"))
+			let marginLeft = parseInt($("#dialog").css("marginLeft"))
+			resize(e.clientX - position.left - marginLeft, e.clientY - position.top - marginTop)
 		}
 	});
 	$(this).mouseup(function(e) {
@@ -36,8 +38,8 @@ $(document).ready(function() {
 		let dialogBoxData = dialogBox.getBoundingClientRect();
 		
 		dialogBox = $("#dialog");
-		let leftMargin = dialogBoxData.x;
-		let topMargin = dialogBoxData.y;
+		let leftOffset = dialogBoxData.x;
+		let topOffset = dialogBoxData.y;
 		let borderWidth = parseInt(dialogBox.css('border-top-width')); // for now I'll assume that all borders have the same width
 		if (borderWidth < 10) {
 			borderWidth = 10; // if the border is too small, it's almost imposible to click on it
@@ -45,8 +47,8 @@ $(document).ready(function() {
 		let width = dialogBoxData.width; // dialogBoxData.width = 2 * border + inner width
 		let height = dialogBoxData.height; // same but for heights
 		
-		let x = e.clientX - leftMargin;
-		let y = e.clientY - topMargin;
+		let x = e.clientX - leftOffset;
+		let y = e.clientY - topOffset;
 
 		// upper and lower borders => x - leftMargin in [0; width], y - topMargin in [0; borderWidth] U [height - borderWidth; height];
 		// left and right borders => x - leftMargin in [0; borderWidth] U [width - borderWidth; width], y - topMargin in [0; height]
