@@ -12,8 +12,8 @@ html {
 #dialog {
 	position: relative;
 	display: none;
-	min-width: 5%;
-	min-height: 5%;
+	min-width: 170px;
+	min-height: 100px;
 	width: 20%;
 	height: 20%;
 	background-color: red;
@@ -32,12 +32,16 @@ html {
 	position: relative;
 	background-color: transparent;
 	top: 0;
+	font-family: Helvetica;
+	color: cyan;
+	text-align: left;
+	padding-left: 8px;
 }
 
 #hideButton {
 	position: absolute;
 	top: 0;
-	right: -15px;
+	right: -7px;
 	border-radius: 10px;
 	cursor: pointer;
 }
@@ -45,5 +49,8 @@ html {
 #dialogText {
 	overflow: auto;
 	max-height: 90%;
+	padding-left: 8px;
+	padding-right: 8px;
+	text-align: left;
 	user-select: none;
 }
