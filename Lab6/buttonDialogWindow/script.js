@@ -20,18 +20,15 @@ $(document).ready(function() {
 
 	var doResize = 0;
 	$(this).mousemove(function(e) {
-		if (doResize === 1) {
-			if ($("#dialog:active").length) { // checks if the mouse is also clicked
-				let position = $("#dialog").position()
-				resize(e.clientX - position.left, e.clientY - position.top)
-			}
+		if (doResize === 1) { // at this point the mouse is clicked (otherwise mouseup would've been triggered => doResize = 0)
+			let position = $("#dialog").position()
+			resize(e.clientX - position.left, e.clientY - position.top)
 		}
 	});
 	$(this).mouseup(function(e) {
 		doResize = 0;
 	});
-
-	$(this).mousemove(function(e) {
+	$(this).mousedown(function(e) {
 		let dialogBox = document.getElementById("dialog");
 		if (dialogBox.style.display === "" || dialogBox.style.display === "none") {
 			return; // don't care about the dialog box if it hasn't been displayed yet
@@ -56,9 +53,6 @@ $(document).ready(function() {
 		if (((0 <= x && x <= width) && ((0 <= y && y <= borderWidth) || (height - borderWidth <= y && y <= height))) || 
 			(((0 <= x && x <= borderWidth) || (width - borderWidth <= x && x <= width)) && (0 <= y && y <= height))){
 			doResize = 1;
-		}
-		else {
-			;
 		}
 	});
 })
