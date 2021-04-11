@@ -14,6 +14,15 @@ const TABLE_HEADER = `
                     <tbody>`;
 const TABLE_FOOTER = `</tbody></table>`;
 
+function initialiseShoppingCartButton() {
+    $.get("modifyShoppingCart.php", {modifiedElementID: 0, isAdded: 2}).done(function(data) {
+        // isAdded > 1 => not an add, nor a remove => it just returns the number of elements in the cart; it also doesn't care about the ID, so we can set it
+        // to whatever we want
+        // data = number of elements in the cart
+        $("#shoppingCartButton").text("Shopping cart (" + data + ")");
+    });
+}
+
 function modifyCart(itemID, isAdded) {
     $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: isAdded}).done(function(data) {
         // data = number of elements in the cart
@@ -22,11 +31,11 @@ function modifyCart(itemID, isAdded) {
 }
 
 function addItemToCart(itemID) {
-    modifyCart(itemID, true);
+    modifyCart(itemID, 1);
 }
 
 function removeItemFromCart(itemID) {
-    modifyCart(itemID, false);
+    modifyCart(itemID, 0);
 }
 
 function setMainContentData(currentPage, currentGenre) {
@@ -36,10 +45,6 @@ function setMainContentData(currentPage, currentGenre) {
         $("#totalAlbumCount").text("Total albums -> " + parsedData[0].count);
         let tableHTML = TABLE_HEADER;
         for (let i = 1; i < parsedData.length; i++) {
-            let checkedStatus = ""
-            /*if (isInShoppingCart(parsedData[i])) {
-                checkedStatus = "checked";
-            }*/
             tableHTML += `
             <tr>
                 <td>${parsedData[i].Title}</td>
@@ -47,21 +52,16 @@ function setMainContentData(currentPage, currentGenre) {
                 <td>${parsedData[i].Genre}</td>
                 <td>${parsedData[i].Sales}</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault${parsedData[i].ID}" ${checkedStatus}>
+                    <button type="button" class="btn btn-primary btn-sm" id = "addToCartButton${parsedData[i].ID}">Add to cart</button>
                 </td>
             </tr>`;
         }
         tableHTML += TABLE_FOOTER;
         $("#mainContent").html(tableHTML);
 
-        $("input[id^='flexCheckDefault']").change(function() {
-            let checkBoxID = $(this)[0].id.replace("flexCheckDefault", "");
-            if (this.checked) {
-                addItemToCart(checkBoxID);
-            }
-            else {
-                removeItemFromCart(checkBoxID);
-            }
+        $("button[id^='addToCartButton']").on("click", function (){
+            let buttonID = $(this)[0].id.replace("flexCheckDefault", "");
+            addItemToCart(buttonID);
         });
     });
 }
@@ -80,6 +80,7 @@ $(document).ready(function() {
     let currentPage = 1;
     let currentGenre = "";
     setMainContentData(currentPage, currentGenre);
+    initialiseShoppingCartButton();
     $("#searchByGenre").val(""); // reset the text in the form after a refresh
 
     $("#previousPageButton").click(function() {

@@ -9,7 +9,7 @@ if (isset($_SESSION['elementCountInShoppingCart']) == false) {
 $modifiedElementID = $_GET["modifiedElementID"];
 $isAdded = $_GET["isAdded"];
 
-if ($isAdded == "true") {
+if ($isAdded == 1) {
     if (isset($_SESSION['elementCountInShoppingCart'][$modifiedElementID]) == true) {
         $_SESSION['elementCountInShoppingCart'][$modifiedElementID]++;
     }
@@ -17,7 +17,7 @@ if ($isAdded == "true") {
         $_SESSION['elementCountInShoppingCart'][$modifiedElementID] = 1; // newly added element
     }
 }
-else {
+else if ($isAdded == 0){
     if (isset($_SESSION['elementCountInShoppingCart'][$modifiedElementID]) == true) {
         $_SESSION['elementCountInShoppingCart'][$modifiedElementID]--;
     }
