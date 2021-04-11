@@ -10,7 +10,7 @@
 
 <body>
     <div class="mt-2 mr-2" align="right">
-        <button type="button" class="btn btn-primary" id = "shoppingCartButton">Shopping cart (0)</button>
+        <a href="shoppingCart.php" class="btn btn-primary btn-sm active" id = "shoppingCartButton" role="button">Shopping cart (0)</a>
     </div>
 
     <div class="container text-center">
