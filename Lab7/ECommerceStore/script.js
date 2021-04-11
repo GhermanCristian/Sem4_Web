@@ -7,19 +7,27 @@ function setMainContentData(currentPage) {
     });
 }
 
+function changePage(currentPage, pageIncrement) {
+    currentPage += pageIncrement;
+    if (currentPage < 1) {
+        return 1; // don't do another get request if we're not gonna change anything
+    }
+    // sth like if currentPage > maxpage, crtpage = maxpage
+    setMainContentData(currentPage);
+    return currentPage;
+}
+
 $(document).ready(function() {
     let currentPage = 1;
     setMainContentData(currentPage);
 
     $("#previousPageButton").click(function() {
         console.log('prev');
-        currentPage -= 1;
-        setMainContentData(currentPage);
+        currentPage = changePage(currentPage, -1);
     });
 
     $("#nextPageButton").click(function() {
         console.log('next');
-        currentPage += 1;
-        setMainContentData(currentPage);
+        currentPage = changePage(currentPage, +1);
     });
 });
