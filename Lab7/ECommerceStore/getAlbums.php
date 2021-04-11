@@ -32,5 +32,6 @@ while ($row = mysqli_fetch_object($result)) {
     $index = $index + 1;
 }
 echo '</tbody>' . '</table>';
+echo '<h3>' . "Albums: " . $result->num_rows . '</h3>';
 
 ?>
