@@ -16,6 +16,7 @@
             <input class="form-control form-control-lg" id="searchByGenre" placeholder="Enter genre">
         </div>
         <div id = "mainContent"></div>
+        <div id = "totalAlbumCount"></div>
         <button type="button" class="btn btn-primary" id = "previousPageButton">Previous page</button>
         <button type="button" class="btn btn-primary" id = "nextPageButton">Next page</button>
     </div>
