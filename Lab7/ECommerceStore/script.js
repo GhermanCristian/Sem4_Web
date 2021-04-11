@@ -14,10 +14,19 @@ const TABLE_HEADER = `
                     <tbody>`;
 const TABLE_FOOTER = `</tbody></table>`;
 
-let itemsInCart = 0;
-let isInCart = [];
-function isInShoppingCart(album) {
-    return isInCart[album.ID];
+function modifyCart(itemID, isAdded) {
+    $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: isAdded}).done(function(data) {
+        // data = number of elements in the cart
+        $("#shoppingCartButton").text("Shopping cart (" + data + ")");
+    });
+}
+
+function addItemToCart(itemID) {
+    modifyCart(itemID, true);
+}
+
+function removeItemFromCart(itemID) {
+    modifyCart(itemID, false);
 }
 
 function setMainContentData(currentPage, currentGenre) {
@@ -28,9 +37,9 @@ function setMainContentData(currentPage, currentGenre) {
         let tableHTML = TABLE_HEADER;
         for (let i = 1; i < parsedData.length; i++) {
             let checkedStatus = ""
-            if (isInShoppingCart(parsedData[i])) {
+            /*if (isInShoppingCart(parsedData[i])) {
                 checkedStatus = "checked";
-            }
+            }*/
             tableHTML += `
             <tr>
                 <td>${parsedData[i].Title}</td>
@@ -48,16 +57,11 @@ function setMainContentData(currentPage, currentGenre) {
         $("input[id^='flexCheckDefault']").change(function() {
             let checkBoxID = $(this)[0].id.replace("flexCheckDefault", "");
             if (this.checked) {
-                isInCart[checkBoxID] = true;
-                itemsInCart++;
-                console.log("checked");
+                addItemToCart(checkBoxID);
             }
             else {
-                isInCart[checkBoxID] = false;
-                itemsInCart--;
-                console.log("unchecked");
+                removeItemFromCart(checkBoxID);
             }
-            $("#shoppingCartButton").text("Shopping cart (" + itemsInCart + ")");
         });
     });
 }
