@@ -14,6 +14,8 @@
         <div id = "mainContent">
 
         </div>
+        <button type="button" class="btn btn-primary" id = "previousPageButton">Previous page</button>
+        <button type="button" class="btn btn-primary" id = "nextPageButton">Next page</button>
     </div>
 </body>
 </html>
