@@ -14,6 +14,10 @@ const TABLE_HEADER = `
                     <tbody>`;
 const TABLE_FOOTER = `</tbody></table>`;
 
+function isInShoppingCart(album) {
+    return false; // TO-DO
+}
+
 function setMainContentData(currentPage, currentGenre) {
     // pages are 1-indexed
     $.get("getAlbums.php", {currentPage: currentPage, elementsPerPage: ELEMENTS_PER_PAGE, currentGenre: currentGenre}).done(function(data) {
@@ -21,14 +25,20 @@ function setMainContentData(currentPage, currentGenre) {
         $("#totalAlbumCount").text("Total albums -> " + parsedData[0].count);
         let tableHTML = TABLE_HEADER;
         for (let i = 1; i < parsedData.length; i++) {
+            let checkedStatus = ""
+            if (isInShoppingCart(parsedData[i])) {
+                checkedStatus = "checked";
+            }
             tableHTML += `
             <tr>
                 <td>${parsedData[i].Title}</td>
                 <td>${parsedData[i].Artist}</td>
                 <td>${parsedData[i].Genre}</td>
                 <td>${parsedData[i].Sales}</td>
+                <td>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault${i}" ${checkedStatus}>
+                </td>
             </tr>`;
-            // generate another table column, with checkboxes
         }
         tableHTML += TABLE_FOOTER;
 
