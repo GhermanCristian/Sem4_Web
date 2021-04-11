@@ -11,9 +11,11 @@
 <body>
     <div class="container text-center">
         <h1 id = "pageTitle">taraba casete obor</h1>
-        <div id = "mainContent">
-
+        <div class="form-group">
+            <label for="searchByGenre">Genre</label>
+            <input class="form-control form-control-lg" id="searchByGenre" placeholder="Enter genre">
         </div>
+        <div id = "mainContent"></div>
         <button type="button" class="btn btn-primary" id = "previousPageButton">Previous page</button>
         <button type="button" class="btn btn-primary" id = "nextPageButton">Next page</button>
     </div>
