@@ -9,6 +9,10 @@
 </head>
 
 <body>
+    <div class="mt-2 mr-2" align="right">
+        <button type="button" class="btn btn-primary" id = "shoppingCartButton">Shopping cart (0)</button>
+    </div>
+
     <div class="container text-center">
         <h1 id = "pageTitle">taraba casete obor</h1>
         <div class="form-group">

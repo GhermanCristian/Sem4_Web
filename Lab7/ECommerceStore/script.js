@@ -14,8 +14,10 @@ const TABLE_HEADER = `
                     <tbody>`;
 const TABLE_FOOTER = `</tbody></table>`;
 
+let itemsInCart = 0;
+let isInCart = [];
 function isInShoppingCart(album) {
-    return false; // TO-DO
+    return isInCart[album.ID];
 }
 
 function setMainContentData(currentPage, currentGenre) {
@@ -36,13 +38,27 @@ function setMainContentData(currentPage, currentGenre) {
                 <td>${parsedData[i].Genre}</td>
                 <td>${parsedData[i].Sales}</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault${i}" ${checkedStatus}>
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault${parsedData[i].ID}" ${checkedStatus}>
                 </td>
             </tr>`;
         }
         tableHTML += TABLE_FOOTER;
-
         $("#mainContent").html(tableHTML);
+
+        $("input[id^='flexCheckDefault']").change(function() {
+            let checkBoxID = $(this)[0].id.replace("flexCheckDefault", "");
+            if (this.checked) {
+                isInCart[checkBoxID] = true;
+                itemsInCart++;
+                console.log("checked");
+            }
+            else {
+                isInCart[checkBoxID] = false;
+                itemsInCart--;
+                console.log("unchecked");
+            }
+            $("#shoppingCartButton").text("Shopping cart (" + itemsInCart + ")");
+        });
     });
 }
 
@@ -74,5 +90,5 @@ $(document).ready(function() {
         currentGenre = $(this).val();
         currentPage = 1;
         setMainContentData(currentPage, currentGenre);
-    })
+    });
 });
