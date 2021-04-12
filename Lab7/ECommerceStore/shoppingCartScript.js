@@ -1,23 +1,23 @@
-//import {ELEMENTS_PER_PAGE, TABLE_HEADER, TABLE_FOOTER} from "./mainScript.js";
-
-const ELEMENTS_PER_PAGE = 4;
+import {ELEMENTS_PER_PAGE, TABLE_FOOTER} from "./constants.js";
 const TABLE_HEADER = `
-            <div class='container mt-10'>
+            <div class='container mt-10 row justify-content-center col-auto'>
             <div class='row'>
-                <table class=\"table\">
+                <table class='table'>
                     <thead>
                     <tr>
-                        <th scope = 'col'>Title</th>
-                        <th scope = 'col'>Artist</th>
-                        <th scope = 'col'>Genre</th>
-                        <th scope = 'col'>Sales</th>
+                        <th scope = 'col' class='col-2'>Title</th>
+                        <th scope = 'col' class='col-2'>Artist</th>
+                        <th scope = 'col' class='col-2'>Genre</th>
+                        <th scope = 'col' class='col-2'>Sales</th>
+                        <th scope = 'col' class='col-2'>Count</th>
+                        <th scope = 'col' class='col-1'></th>
+                        <th scope = 'col' class='col-1'></th>
                     </tr>
                     </thead>
                     <tbody>`;
-const TABLE_FOOTER = `</tbody></table>`;
 
 function removeFromCart(itemID, itemCount, currentPage) {
-    $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: 0, itemCount: itemCount}).done(function(data) {
+    $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: 0, itemCount: itemCount}).done(function() {
         setMainContentData(currentPage);
     });
 }
@@ -34,6 +34,12 @@ function setMainContentData(currentPage) {
     $.get("getAlbumsFromShoppingCart.php", {currentPage: currentPage, elementsPerPage: ELEMENTS_PER_PAGE}).done(function(data) {
         let parsedData = JSON.parse(data);
         let tableHTML = TABLE_HEADER;
+        let mainContentDiv = $("#mainContent");
+
+        if (parsedData.length === 0) {
+            mainContentDiv.html("");
+            return;
+        }
 
         for (let i = 0; i < parsedData.length; i++) {
             tableHTML += `
@@ -53,7 +59,7 @@ function setMainContentData(currentPage) {
         }
 
         tableHTML += TABLE_FOOTER;
-        $("#mainContent").html(tableHTML);
+        mainContentDiv.html(tableHTML);
 
         $("button[id^='removeOneFromCartButton']").on("click", function (){
             let buttonID = $(this)[0].id.replace("removeOneFromCartButton", "");
@@ -63,7 +69,7 @@ function setMainContentData(currentPage) {
             let buttonID = $(this)[0].id.replace("removeAllFromCartButton", "");
             removeAllItemOccurrencesFromCart(buttonID, currentPage);
         });
-    })
+    });
 }
 
 function changePage(currentPage, pageIncrement) {
