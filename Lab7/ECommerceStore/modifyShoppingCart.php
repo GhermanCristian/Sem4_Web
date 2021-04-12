@@ -20,6 +20,9 @@ if ($isAdded == 1) {
 else if ($isAdded == 0){
     if (isset($_SESSION['elementCountInShoppingCart'][$modifiedElementID]) == true) {
         $_SESSION['elementCountInShoppingCart'][$modifiedElementID] -= $itemCount;
+        if ($_SESSION['elementCountInShoppingCart'][$modifiedElementID] <= 0) {
+            unset($_SESSION['elementCountInShoppingCart'][$modifiedElementID]); // remove item from cart if it reaches 0 or less occurrences
+        }
     }
     // else throw an exception ?
 }

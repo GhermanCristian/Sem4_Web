@@ -11,8 +11,9 @@ if (isset($_SESSION['elementCountInShoppingCart']) == false) {
 }
 $array = $_SESSION['elementCountInShoppingCart'];
 
+$currentPosition = 1;
 foreach ($array as $currentIndex => $currentItemCount) {
-    if (($currentPage - 1) * $elementsPerPage < $currentIndex && $currentIndex <= $currentPage * $elementsPerPage) {
+    if (($currentPage - 1) * $elementsPerPage < $currentPosition && $currentPosition <= $currentPage * $elementsPerPage) {
         $queryResult = mysqli_query($connection, "SELECT * FROM album WHERE ID = {$currentIndex}");
         if ($queryResult->num_rows == 1) {
             $item = mysqli_fetch_object($queryResult);
@@ -21,6 +22,7 @@ foreach ($array as $currentIndex => $currentItemCount) {
         }
         // else throw an exception
     }
+    $currentPosition++;
 }
 
 echo json_encode($returnedDataArray);
