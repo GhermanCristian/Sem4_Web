@@ -30,12 +30,8 @@ function modifyCart(itemID, isAdded, itemCount) {
     });
 }
 
-function addItemToCart(itemID) {
-    modifyCart(itemID, 1, 1);
-}
-
-function removeItemFromCart(itemID) {
-    modifyCart(itemID, 0, 1);
+function addItemsToCart(itemID, itemCount) {
+    modifyCart(itemID, 1, itemCount);
 }
 
 function setMainContentData(currentPage, currentGenre) {
@@ -71,7 +67,10 @@ function setMainContentData(currentPage, currentGenre) {
 
         $("button[id^='addToCartButton']").on("click", function (){
             let buttonID = $(this)[0].id.replace("addToCartButton", "");
-            addItemToCart(buttonID);
+            let itemCount = $("#addToCartForm" + buttonID)[0].value;
+            if (itemCount !== "") {
+                addItemsToCart(buttonID, itemCount);
+            };
         });
     });
 }
@@ -89,9 +88,10 @@ function changePage(currentPage, pageIncrement, currentGenre) {
 $(document).ready(function() {
     let currentPage = 1;
     let currentGenre = "";
+    let searchForm = $("#searchByGenre");
     setMainContentData(currentPage, currentGenre);
     initialiseShoppingCartButton();
-    $("#searchByGenre").val(""); // reset the text in the form after a refresh
+    searchForm.val(""); // reset the text in the form after a refresh
 
     $("#previousPageButton").click(function() {
         currentPage = changePage(currentPage, -1, currentGenre);
@@ -101,7 +101,7 @@ $(document).ready(function() {
         currentPage = changePage(currentPage, +1, currentGenre);
     });
 
-    $("#searchByGenre").on("keyup", function () {
+    searchForm.on("keyup", function () {
         currentGenre = $(this).val();
         currentPage = 1;
         setMainContentData(currentPage, currentGenre);
