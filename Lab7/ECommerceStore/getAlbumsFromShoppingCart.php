@@ -16,7 +16,7 @@ foreach ($array as $currentIndex => $currentItemCount) {
         $queryResult = mysqli_query($connection, "SELECT * FROM album WHERE ID = {$currentIndex}");
         if ($queryResult->num_rows == 1) {
             $item = mysqli_fetch_object($queryResult);
-            //$item['TimesInCart'] = $currentItemCount;
+            $item->{"TimesInCart"} = $currentItemCount;
             array_push($returnedDataArray, $item);
         }
         // else throw an exception
