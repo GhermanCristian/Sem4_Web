@@ -1,7 +1,7 @@
 import {TABLE_FOOTER, ELEMENTS_PER_PAGE} from "./constants.js";
 const TABLE_HEADER = `
             <div class='container mt-10 row justify-content-center col-auto'>
-            <div class='row'>
+            <div class='row w-100'>
                 <table class='table'>
                     <thead>
                     <tr>
@@ -55,10 +55,10 @@ function setMainContentData(currentPage, currentGenre) {
                 <td class='col-2'>${parsedData[i].Genre}</td>
                 <td class='col-2'>${parsedData[i].Sales}</td>
                 <td class='col-3'>
-                    <button type="button" class="btn btn-primary btn-md" id = "addToCartButton${parsedData[i].ID}">Add to cart</button>
+                    <button type="button" class="btn btn-dark btn-md" id = "addToCartButton${parsedData[i].ID}">Add to cart</button>
                 </td>
                 <td class='col-1 px-0'>
-                    <input class="form-control form-control-lg px-1" id="addToCartForm${parsedData[i].ID}">
+                    <input class="form-control form-control-md px-1" id="addToCartForm${parsedData[i].ID}">
                 </td>
             </tr>`;
         }
@@ -68,9 +68,10 @@ function setMainContentData(currentPage, currentGenre) {
         $("button[id^='addToCartButton']").on("click", function (){
             let buttonID = $(this)[0].id.replace("addToCartButton", "");
             let itemCount = $("#addToCartForm" + buttonID)[0].value;
-            if (itemCount !== "") {
-                addItemsToCart(buttonID, itemCount);
-            };
+            if (itemCount === "") {
+                itemCount = 1;
+            }
+            addItemsToCart(buttonID, itemCount);
         });
     });
 }

@@ -1,17 +1,17 @@
 import {ELEMENTS_PER_PAGE, TABLE_FOOTER} from "./constants.js";
 const TABLE_HEADER = `
-            <div class='container mt-10 row justify-content-center col-auto'>
-            <div class='row'>
+            <div class='container mt-10 row justify-content-center'>
+            <div class='row w-100'>
                 <table class='table'>
                     <thead>
                     <tr>
                         <th scope = 'col' class='col-2'>Title</th>
                         <th scope = 'col' class='col-2'>Artist</th>
                         <th scope = 'col' class='col-2'>Genre</th>
-                        <th scope = 'col' class='col-2'>Sales</th>
-                        <th scope = 'col' class='col-2'>Count</th>
-                        <th scope = 'col' class='col-1'></th>
-                        <th scope = 'col' class='col-1'></th>
+                        <th scope = 'col' class='col-1'>Sales</th>
+                        <th scope = 'col' class='col-1'>Count</th>
+                        <th scope = 'col' class='col-2'></th>
+                        <th scope = 'col' class='col-2'></th>
                     </tr>
                     </thead>
                     <tbody>`;
@@ -27,7 +27,7 @@ function removeOneItemOccurrenceFromCart(itemID, currentPage) {
 }
 
 function removeAllItemOccurrencesFromCart(itemID, currentPage) {
-    removeFromCart(itemID, 999, currentPage);
+    removeFromCart(itemID, 999999, currentPage);
 }
 
 function setMainContentData(currentPage) {
@@ -44,16 +44,16 @@ function setMainContentData(currentPage) {
         for (let i = 0; i < parsedData.length; i++) {
             tableHTML += `
             <tr>
-                <td>${parsedData[i].Title}</td>
-                <td>${parsedData[i].Artist}</td>
-                <td>${parsedData[i].Genre}</td>
-                <td>${parsedData[i].Sales}</td>
-                <td>${parsedData[i].TimesInCart}</td>
-                <td>
-                    <button type="button" class="btn btn-primary btn-sm" id = "removeOneFromCartButton${parsedData[i].ID}">Remove 1 from cart</button>
+                <td class='col-2'>${parsedData[i].Title}</td>
+                <td class='col-2'>${parsedData[i].Artist}</td>
+                <td class='col-2'>${parsedData[i].Genre}</td>
+                <td class='col-1'>${parsedData[i].Sales}</td>
+                <td class='col-1'>${parsedData[i].TimesInCart}</td>
+                <td class='col-2'>
+                    <button type="button" class="btn btn-dark btn-md" id = "removeOneFromCartButton${parsedData[i].ID}">Remove 1 from cart</button>
                 </td>
-                <td>
-                    <button type="button" class="btn btn-primary btn-sm" id = "removeAllFromCartButton${parsedData[i].ID}">Remove all from cart</button>
+                <td class='col-2'>
+                    <button type="button" class="btn btn-dark btn-md" id = "removeAllFromCartButton${parsedData[i].ID}">Remove all from cart</button>
                 </td>
             </tr>`;
         }
