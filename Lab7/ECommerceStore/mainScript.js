@@ -16,27 +16,26 @@ const TABLE_FOOTER = `</tbody></table>`;
 //export {ELEMENTS_PER_PAGE, TABLE_HEADER, TABLE_FOOTER};
 
 function initialiseShoppingCartButton() {
-    $.get("modifyShoppingCart.php", {modifiedElementID: 0, isAdded: 2}).done(function(data) {
-        // isAdded > 1 => not an add, nor a remove => it just returns the number of elements in the cart; it also doesn't care about the ID, so we can set it
-        // to whatever we want
+    $.get("modifyShoppingCart.php", {modifiedElementID: 0, isAdded: 2, itemCount: 0}).done(function(data) {
+        // isAdded > 1 => not an add, nor a remove => it just returns the number of elements in the cart; it also doesn't care about the ID nor the itemCount
         // data = number of elements in the cart
         $("#shoppingCartButton").text("Shopping cart (" + data + ")");
     });
 }
 
-function modifyCart(itemID, isAdded) {
-    $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: isAdded}).done(function(data) {
+function modifyCart(itemID, isAdded, itemCount) {
+    $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: isAdded, itemCount: itemCount}).done(function(data) {
         // data = number of elements in the cart
         $("#shoppingCartButton").text("Shopping cart (" + data + ")");
     });
 }
 
 function addItemToCart(itemID) {
-    modifyCart(itemID, 1);
+    modifyCart(itemID, 1, 1);
 }
 
 function removeItemFromCart(itemID) {
-    modifyCart(itemID, 0);
+    modifyCart(itemID, 0, 1);
 }
 
 function setMainContentData(currentPage, currentGenre) {
