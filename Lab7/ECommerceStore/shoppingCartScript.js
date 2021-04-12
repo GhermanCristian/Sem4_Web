@@ -16,6 +16,20 @@ const TABLE_HEADER = `
                     <tbody>`;
 const TABLE_FOOTER = `</tbody></table>`;
 
+function removeFromCart(itemID, itemCount, currentPage) {
+    $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: 0, itemCount: itemCount}).done(function(data) {
+        setMainContentData(currentPage);
+    });
+}
+
+function removeOneItemOccurrenceFromCart(itemID, currentPage) {
+    removeFromCart(itemID, 1, currentPage);
+}
+
+function removeAllItemOccurrencesFromCart(itemID, currentPage) {
+    removeFromCart(itemID, 999, currentPage);
+}
+
 function setMainContentData(currentPage) {
     $.get("getAlbumsFromShoppingCart.php", {currentPage: currentPage, elementsPerPage: ELEMENTS_PER_PAGE}).done(function(data) {
         let parsedData = JSON.parse(data);
@@ -30,16 +44,25 @@ function setMainContentData(currentPage) {
                 <td>${parsedData[i].Sales}</td>
                 <td>${parsedData[i].TimesInCart}</td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" id = "addToCartButton${parsedData[i].ID}">Remove 1 from cart</button>
+                    <button type="button" class="btn btn-primary btn-sm" id = "removeOneFromCartButton${parsedData[i].ID}">Remove 1 from cart</button>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm" id = "addToCartButton${parsedData[i].ID}">Remove all from cart</button>
+                    <button type="button" class="btn btn-primary btn-sm" id = "removeAllFromCartButton${parsedData[i].ID}">Remove all from cart</button>
                 </td>
             </tr>`;
         }
 
         tableHTML += TABLE_FOOTER;
         $("#mainContent").html(tableHTML);
+
+        $("button[id^='removeOneFromCartButton']").on("click", function (){
+            let buttonID = $(this)[0].id.replace("removeOneFromCartButton", "");
+            removeOneItemOccurrenceFromCart(buttonID, currentPage);
+        });
+        $("button[id^='removeAllFromCartButton']").on("click", function (){
+            let buttonID = $(this)[0].id.replace("removeAllFromCartButton", "");
+            removeAllItemOccurrencesFromCart(buttonID, currentPage);
+        });
     })
 }
 
