@@ -2,8 +2,7 @@
 session_start();
 
 if (isset($_SESSION['elementCountInShoppingCart']) == false) {
-    $elementCountInShoppingCart = [];
-    $_SESSION['elementCountInShoppingCart'] = $elementCountInShoppingCart;
+    $_SESSION['elementCountInShoppingCart'] = [];
 }
 
 $modifiedElementID = $_GET["modifiedElementID"];

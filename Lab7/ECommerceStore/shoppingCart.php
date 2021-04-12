@@ -4,13 +4,20 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="script.js"></script>
+    <script src="shoppingCartScript.js" type="module"></script>
     <title>Shopping cart</title>
 </head>
 
 <body>
+    <div class="mt-2 mr-2" align="right">
+        <a href="index.php" class="btn btn-primary btn-sm active" id = "backButton" role="button">Back to main</a>
+    </div>
+
     <div class="container text-center">
         <h1 id = "pageTitle">Shopping cart</h1>
+        <div id = "mainContent"></div>
+        <button type="button" class="btn btn-primary" id = "previousPageButton">Previous page</button>
+        <button type="button" class="btn btn-primary" id = "nextPageButton">Next page</button>
     </div>
 </body>
 </html>

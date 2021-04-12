@@ -13,6 +13,7 @@ const TABLE_HEADER = `
                     </thead>
                     <tbody>`;
 const TABLE_FOOTER = `</tbody></table>`;
+//export {ELEMENTS_PER_PAGE, TABLE_HEADER, TABLE_FOOTER};
 
 function initialiseShoppingCartButton() {
     $.get("modifyShoppingCart.php", {modifiedElementID: 0, isAdded: 2}).done(function(data) {
@@ -60,7 +61,7 @@ function setMainContentData(currentPage, currentGenre) {
         $("#mainContent").html(tableHTML);
 
         $("button[id^='addToCartButton']").on("click", function (){
-            let buttonID = $(this)[0].id.replace("flexCheckDefault", "");
+            let buttonID = $(this)[0].id.replace("addToCartButton", "");
             addItemToCart(buttonID);
         });
     });
