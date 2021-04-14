@@ -5,33 +5,28 @@ const TABLE_HEADER = `
                 <table class='table'>
                     <thead>
                     <tr>
-                        <th scope = 'col' class='col-2'>Title</th>
-                        <th scope = 'col' class='col-2'>Artist</th>
+                        <th scope = 'col' class='col-3'>Title</th>
+                        <th scope = 'col' class='col-3'>Artist</th>
                         <th scope = 'col' class='col-2'>Genre</th>
-                        <th scope = 'col' class='col-2'>Sales</th>
-                        <th scope = 'col' class='col-3'></th>
+                        <th scope = 'col' class='col-1'>Sales</th>
+                        <th scope = 'col' class='col-2'></th>
                         <th scope = 'col' class='col-1'></th>
                     </tr>
                     </thead>
                     <tbody>`;
 
 function initialiseShoppingCartButton() {
-    $.get("modifyShoppingCart.php", {modifiedElementID: 0, isAdded: 2, itemCount: 0}).done(function(data) {
-        // isAdded > 1 => not an add, nor a remove => it just returns the number of elements in the cart; it also doesn't care about the ID nor the itemCount
-        // data = number of elements in the cart
-        $("#shoppingCartButton").text("Shopping cart (" + data + ")");
-    });
-}
-
-function modifyCart(itemID, isAdded, itemCount) {
-    $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: isAdded, itemCount: itemCount}).done(function(data) {
-        // data = number of elements in the cart
+    $.get("addToShoppingCart.php", {modifiedElementID: -1, itemCount: 0}).done(function(data) {
+        // modifiedElementID = -1 => just get the number of elements in the cart, don't add anything (the itemCount is irrelevant)
         $("#shoppingCartButton").text("Shopping cart (" + data + ")");
     });
 }
 
 function addItemsToCart(itemID, itemCount) {
-    modifyCart(itemID, 1, itemCount);
+    $.get("addToShoppingCart.php", {modifiedElementID: itemID, itemCount: itemCount}).done(function(data) {
+        // data = number of elements in the cart
+        $("#shoppingCartButton").text("Shopping cart (" + data + ")");
+    });
 }
 
 function setMainContentData(currentPage, currentGenre) {
@@ -50,11 +45,11 @@ function setMainContentData(currentPage, currentGenre) {
         for (let i = 1; i < parsedData.length; i++) {
             tableHTML += `
             <tr>
-                <td class='col-2'>${parsedData[i].Title}</td>
-                <td class='col-2'>${parsedData[i].Artist}</td>
+                <td class='col-3'>${parsedData[i].Title}</td>
+                <td class='col-3'>${parsedData[i].Artist}</td>
                 <td class='col-2'>${parsedData[i].Genre}</td>
-                <td class='col-2'>${parsedData[i].Sales}</td>
-                <td class='col-3'>
+                <td class='col-1'>${parsedData[i].Sales}</td>
+                <td class='col-2'>
                     <button type="button" class="btn btn-dark btn-md" id = "addToCartButton${parsedData[i].ID}">Add to cart</button>
                 </td>
                 <td class='col-1 px-0'>
@@ -69,7 +64,7 @@ function setMainContentData(currentPage, currentGenre) {
             let buttonID = $(this)[0].id.replace("addToCartButton", "");
             let itemCount = $("#addToCartForm" + buttonID)[0].value;
             if (itemCount === "") {
-                itemCount = 1;
+                itemCount = 1; // if we just press the button, without providing any number in the form, add 1
             }
             addItemsToCart(buttonID, itemCount);
         });

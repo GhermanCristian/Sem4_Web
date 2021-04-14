@@ -7,7 +7,6 @@ $currentGenre = $_GET["currentGenre"];
 $sqlQuery = "SELECT * FROM album WHERE Genre LIKE '%{$currentGenre}%'";
 $result = mysqli_query($connection, $sqlQuery); // 'connection' is not recognised, but it works
 
-
 $albumCount = ['count' => $result->num_rows];
 $returnedDataArray = [$albumCount];
 
@@ -20,5 +19,4 @@ while ($row = mysqli_fetch_object($result)) {
 }
 
 echo json_encode($returnedDataArray);
-
 ?>

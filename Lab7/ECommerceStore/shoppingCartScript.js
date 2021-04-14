@@ -16,18 +16,18 @@ const TABLE_HEADER = `
                     </thead>
                     <tbody>`;
 
-function removeFromCart(itemID, itemCount, currentPage) {
-    $.get("modifyShoppingCart.php", {modifiedElementID: itemID, isAdded: 0, itemCount: itemCount}).done(function() {
+function removeFromCart(itemID, removeOne, currentPage) {
+    $.get("removeFromShoppingCart.php", {modifiedElementID: itemID, removeOne: removeOne}).done(function() {
         setMainContentData(currentPage);
     });
 }
 
 function removeOneItemOccurrenceFromCart(itemID, currentPage) {
-    removeFromCart(itemID, 1, currentPage);
+    removeFromCart(itemID, true, currentPage);
 }
 
 function removeAllItemOccurrencesFromCart(itemID, currentPage) {
-    removeFromCart(itemID, 999999, currentPage);
+    removeFromCart(itemID, false, currentPage);
 }
 
 function setMainContentData(currentPage) {
