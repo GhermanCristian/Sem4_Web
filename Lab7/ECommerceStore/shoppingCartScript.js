@@ -30,34 +30,36 @@ function removeAllItemOccurrencesFromCart(itemID, currentPage) {
     removeFromCart(itemID, false, currentPage);
 }
 
+function getHTMLForItem(item) {
+    return `<tr>
+                <td class='col-2'>${item.Title}</td>
+                <td class='col-2'>${item.Artist}</td>
+                <td class='col-2'>${item.Genre}</td>
+                <td class='col-1'>${item.Sales}</td>
+                <td class='col-1'>${item.TimesInCart}</td>
+                <td class='col-2'>
+                    <button type="button" class="btn btn-dark btn-md" id = "removeOneFromCartButton${item.ID}">Remove 1 from cart</button>
+                </td>
+                <td class='col-2'>
+                    <button type="button" class="btn btn-dark btn-md" id = "removeAllFromCartButton${item.ID}">Remove all from cart</button>
+                </td>
+            </tr>`;
+}
+
 function setMainContentData(currentPage) {
     $.get("getAlbumsFromShoppingCart.php", {currentPage: currentPage, elementsPerPage: ELEMENTS_PER_PAGE}).done(function(data) {
-        let parsedData = JSON.parse(data);
+        let parsedAlbums = JSON.parse(data);
         let tableHTML = TABLE_HEADER;
         let mainContentDiv = $("#mainContent");
 
-        if (parsedData.length === 0) {
+        if (parsedAlbums.length === 0) {
             mainContentDiv.html("");
             return;
         }
 
-        for (let i = 0; i < parsedData.length; i++) {
-            tableHTML += `
-            <tr>
-                <td class='col-2'>${parsedData[i].Title}</td>
-                <td class='col-2'>${parsedData[i].Artist}</td>
-                <td class='col-2'>${parsedData[i].Genre}</td>
-                <td class='col-1'>${parsedData[i].Sales}</td>
-                <td class='col-1'>${parsedData[i].TimesInCart}</td>
-                <td class='col-2'>
-                    <button type="button" class="btn btn-dark btn-md" id = "removeOneFromCartButton${parsedData[i].ID}">Remove 1 from cart</button>
-                </td>
-                <td class='col-2'>
-                    <button type="button" class="btn btn-dark btn-md" id = "removeAllFromCartButton${parsedData[i].ID}">Remove all from cart</button>
-                </td>
-            </tr>`;
+        for (let i = 0; i < parsedAlbums.length; i++) {
+            tableHTML += getHTMLForItem(parsedAlbums[i]);
         }
-
         tableHTML += TABLE_FOOTER;
         mainContentDiv.html(tableHTML);
 
