@@ -1,0 +1,19 @@
+<h2>Album list</h2>
+
+<table class="albums">
+  <tr>
+    <th>ID</th>
+    <th>Title</th>
+    <th>Artist</th>
+    <th>Genre</th>
+    <th>Sales</th>
+  </tr>
+  <tr *ngFor="let album of albums">
+    <td>{{album.ID}}</td>
+    <td>{{album.Title}}</td>
+    <td>{{album.Artist}}</td>
+    <td>{{album.Genre}}</td>
+    <td>{{album.Sales}}</td>
+  </tr>
+</table>
+<div>Total albums -> {{albumCount}}</div>
