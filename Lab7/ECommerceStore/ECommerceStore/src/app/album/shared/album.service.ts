@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {Album} from "./album.model";
 
 @Injectable()
 export class AlbumService {
@@ -10,7 +9,13 @@ export class AlbumService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAlbums(): Observable<any> {
-    return this.httpClient.get<any>(this.URL);
+  getAlbums(currentPage, albumsPerPage, currentGenre): Observable<any> {
+    return this.httpClient.get<any>(this.URL, {
+      params: {
+        "currentPage": currentPage,
+        "elementsPerPage": albumsPerPage,
+        "currentGenre": currentGenre
+      }
+    });
   }
 }

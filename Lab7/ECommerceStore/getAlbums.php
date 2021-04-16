@@ -3,12 +3,10 @@ header('Access-Control-Allow-Origin: *');
 include 'DBConnection.php';
 
 
-/*$currentPage = $_GET["currentPage"];
+$currentPage = $_GET["currentPage"];
 $elementsPerPage = $_GET["elementsPerPage"];
-$currentGenre = $_GET["currentGenre"];*/
-$currentPage = 1; // temporary, before I figure out how to send a get with params
-$elementsPerPage = 4;
-$currentGenre = "";
+$currentGenre = $_GET["currentGenre"];
+
 $sqlQuery = "SELECT * FROM album WHERE Genre LIKE '%{$currentGenre}%'";
 $result = mysqli_query($connection, $sqlQuery); // 'connection' is not recognised, but it works
 

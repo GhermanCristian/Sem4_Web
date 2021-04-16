@@ -14,7 +14,7 @@ export class MainAlbumListComponent implements OnInit {
   constructor(private albumService: AlbumService) { }
 
   ngOnInit(): void {
-    this.getAlbums();
+    this.getAlbums(1, 4, "");
   }
 
   parseResponse(response) {
@@ -23,8 +23,8 @@ export class MainAlbumListComponent implements OnInit {
     this.albums = response;
   }
 
-  getAlbums() {
-    this.albumService.getAlbums()
+  getAlbums(currentPage, albumsPerPage, currentGenre) {
+    this.albumService.getAlbums(currentPage, albumsPerPage, currentGenre)
       .subscribe(
         response => this.parseResponse(response),
         error => console.log(error),
