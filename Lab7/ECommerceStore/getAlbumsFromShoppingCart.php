@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 include 'DBConnection.php';
 session_start();
 
@@ -10,6 +11,7 @@ if (isset($_SESSION['elementCountInShoppingCart']) == false) {
     $_SESSION['elementCountInShoppingCart'] = [];
 }
 $array = $_SESSION['elementCountInShoppingCart'];
+$array[1] = 4; // just for testing the shopping cart page before implementing add to shopping cart
 
 $currentPosition = 1;
 foreach ($array as $currentIndex => $currentItemCount) {

@@ -7,12 +7,14 @@ import { MainAlbumListComponent } from './album/main-album-list/main-album-list.
 import {AppRoutingModule} from "./app-routing.module";
 import {AlbumService} from "./album/shared/album.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import { ShoppingCartComponent } from './album/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlbumComponent,
     MainAlbumListComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,
