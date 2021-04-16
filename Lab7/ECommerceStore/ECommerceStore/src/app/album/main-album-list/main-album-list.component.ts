@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Album} from "../shared/album.model";
 import {AlbumService} from "../shared/album.service";
 import {FormBuilder} from "@angular/forms";
+import * as constants from "../shared/constants";
 
 @Component({
   selector: 'app-main-album-list',
@@ -20,11 +21,11 @@ export class MainAlbumListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAlbums(1, 4, "");
+    this.getAlbums(1, constants.ALBUMS_PER_PAGE, "");
   }
 
   onSubmit(): void {
-    console.log(this.genreForm.value.genre);
+    this.getAlbums(1, constants.ALBUMS_PER_PAGE, this.genreForm.value.genre);
   }
 
   parseResponse(response) {
