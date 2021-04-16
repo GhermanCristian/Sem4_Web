@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Album} from "../shared/album.model";
 import {AlbumService} from "../shared/album.service";
+import {FormBuilder} from "@angular/forms";
 
 @Component({
   selector: 'app-main-album-list',
@@ -10,11 +11,20 @@ import {AlbumService} from "../shared/album.service";
 export class MainAlbumListComponent implements OnInit {
   albums: Album[];
   albumCount: number;
+  genreForm: any;
 
-  constructor(private albumService: AlbumService) { }
+  constructor(private albumService: AlbumService, private formBuilder: FormBuilder) {
+    this.genreForm = this.formBuilder.group({
+      genre: ''
+    })
+  }
 
   ngOnInit(): void {
     this.getAlbums(1, 4, "");
+  }
+
+  onSubmit(): void {
+    console.log(this.genreForm.value.genre);
   }
 
   parseResponse(response) {

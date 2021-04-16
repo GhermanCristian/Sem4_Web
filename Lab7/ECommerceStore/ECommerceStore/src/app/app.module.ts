@@ -6,6 +6,7 @@ import { AlbumComponent } from './album/album.component';
 import { MainAlbumListComponent } from './album/main-album-list/main-album-list.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {AlbumService} from "./album/shared/album.service";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {AlbumService} from "./album/shared/album.service";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [AlbumService],
   bootstrap: [AppComponent]

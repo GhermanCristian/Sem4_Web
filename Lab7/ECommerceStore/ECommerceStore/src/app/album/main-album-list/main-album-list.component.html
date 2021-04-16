@@ -1,5 +1,11 @@
 <h2>Album list</h2>
 
+<form [formGroup]="genreForm" (keyup)="onSubmit()">
+  <label for="genre">Genre</label>
+  <input id="genre" type="text" formControlName="genre">
+  <button class="button" type="submit">Select</button>
+</form>
+
 <table class="albums">
   <tr>
     <th>ID</th>
