@@ -14,12 +14,14 @@ export class MainAlbumListComponent implements OnInit {
   albumCount: number;
   genreForm: any;
   currentPage: any;
+  quantities: string[];
 
   constructor(private albumService: AlbumService, private formBuilder: FormBuilder) {
     this.currentPage = 1;
     this.genreForm = this.formBuilder.group({
       genre: ''
-    })
+    });
+    this.quantities = ['', '', '', ''];
   }
 
   ngOnInit(): void {
@@ -34,7 +36,11 @@ export class MainAlbumListComponent implements OnInit {
     this.getAlbums();
   }
 
-  addToCart(albumID, quantity): void {
+  addToCart(albumID, posOnPage): void {
+    let quantity = 1; // default if no value is provided in the form
+    if (this.quantities[posOnPage] !== '') {
+      quantity = parseInt(this.quantities[posOnPage]);
+    }
     this.albumService.addAlbumToShoppingCart(albumID, quantity)
       .subscribe(
         response => console.log("albums in shopping cart = ", response),
@@ -56,11 +62,18 @@ export class MainAlbumListComponent implements OnInit {
       );
   }
 
+  clearQuantityForms(): void {
+    for (let i = 0; i < constants.ALBUMS_PER_PAGE; i++) {
+      this.quantities[i] = "";
+    }
+  }
+
   goBackOnePage() {
     if (this.currentPage <= 1) {
       return;
     }
 
+    this.clearQuantityForms();
     this.currentPage -= 1;
     this.getAlbums();
   }
@@ -70,7 +83,12 @@ export class MainAlbumListComponent implements OnInit {
       return;
     }
 
+    this.clearQuantityForms();
     this.currentPage += 1;
     this.getAlbums();
+  }
+
+  trackByIndex(index: number, object: any) {
+    return index;
   }
 }

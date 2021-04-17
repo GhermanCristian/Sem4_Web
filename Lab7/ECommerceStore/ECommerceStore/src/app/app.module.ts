@@ -6,7 +6,7 @@ import { AlbumComponent } from './album/album.component';
 import { MainAlbumListComponent } from './album/main-album-list/main-album-list.component';
 import {AppRoutingModule} from "./app-routing.module";
 import {AlbumService} from "./album/shared/album.service";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ShoppingCartComponent } from './album/shopping-cart/shopping-cart.component';
 
 @NgModule({
@@ -16,12 +16,13 @@ import { ShoppingCartComponent } from './album/shopping-cart/shopping-cart.compo
     MainAlbumListComponent,
     ShoppingCartComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
+    ],
   providers: [AlbumService],
   bootstrap: [AppComponent]
 })

@@ -13,13 +13,14 @@
     <th>Genre</th>
     <th>Sales</th>
   </tr>
-  <tr *ngFor="let album of albums">
+  <tr *ngFor="let album of albums; index as i ;trackBy:trackByIndex">
     <td>{{album.ID}}</td>
     <td>{{album.Title}}</td>
     <td>{{album.Artist}}</td>
     <td>{{album.Genre}}</td>
     <td>{{album.Sales}}</td>
-    <button (click)="addToCart(album.ID, 1)">Add to cart</button>
+    <button (click)="addToCart(album.ID, i)">Add to cart</button>
+    <input type="text" [(ngModel)]="quantities[i]">
   </tr>
 </table>
 <div>Total albums -> {{albumCount}}</div>
