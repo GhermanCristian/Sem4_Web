@@ -1,29 +1,25 @@
-<h2>Album list</h2>
+<h2 class="centerTitle">Album list</h2>
 
-<form [formGroup]="genreForm" (keyup)="onKeyUp()" autocomplete="off">
-  <label for="genre">Genre</label>
-  <input id="genre" type="text" formControlName="genre">
+<form [formGroup]="genreForm" (keyup)="onKeyUp()" autocomplete="off" id="genreForm">
+  <input id="genre" type="text" formControlName="genre" placeholder="Enter genre" id="genreInput">
 </form>
 
-<table class="albums">
-  <tr>
-    <th>ID</th>
-    <th>Title</th>
-    <th>Artist</th>
-    <th>Genre</th>
-    <th>Sales</th>
-  </tr>
-  <tr *ngFor="let album of albums; index as i ;trackBy:trackByIndex">
-    <td>{{album.ID}}</td>
-    <td>{{album.Title}}</td>
-    <td>{{album.Artist}}</td>
-    <td>{{album.Genre}}</td>
-    <td>{{album.Sales}}</td>
+<ul class="albums">
+  <li *ngFor="let album of albums; index as i ;trackBy:trackByIndex">
+    <h2>{{album.ID}}</h2>
+    <h3>{{album.Title}}</h3>
+    <p>{{album.Artist}}</p>
+    <p>{{album.Genre}}</p>
+    <p>{{album.Sales}}</p>
     <button (click)="addToCart(album.ID, i)">Add to cart</button>
     <input type="text" [(ngModel)]="quantities[i]">
-  </tr>
-</table>
-<div>Total albums -> {{albumCount}}</div>
+  </li>
+</ul>
 
-<button id="previousPageButton" (click)="goBackOnePage()">Previous page</button>
-<button id="nextPageButton" (click)="goForwardOnePage()">Next page</button>
+<ul class="centerNavigationButtons">
+  <div>Total albums -> {{albumCount}}</div>
+  <br>
+  <button id="previousPageButton" (click)="goBackOnePage()">Previous page</button>
+  <button id="nextPageButton" (click)="goForwardOnePage()">Next page</button>
+</ul>
+

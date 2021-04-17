@@ -1,1 +1,100 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  font-family: 'helvetica', san-serif;
+  background-color: #75adba;
+}
+
+h1 {
+  text-align: center;
+}
+
+ul, nav {
+  text-align: center;
+}
+
+input {
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 5px;
+  max-width: 90%;
+}
+
+button {
+  border-radius: 7px;
+  min-height: 25px;
+  cursor: pointer;
+}
+
+.albums {
+  padding: 0;
+  margin: 35px auto;
+  list-style: none;
+  text-align: center;
+}
+
+.albums li {
+  display: inline-block;
+  width: 20%;
+  min-width: 200px;
+  max-width: 230px;
+  padding: 70px 20px 20px;
+  position: relative;
+  vertical-align: top;
+  margin: 10px;
+  min-height: 25vh;
+  background: #262a2b;
+  border: 5px solid;
+  border-image: linear-gradient(to bottom, red, rgba(0, 0, 0, 0)) 1 100%;
+  text-align: left;
+}
+
+.albums li h2 {
+  font-size: 114px;
+  margin: 0;
+  position: absolute;
+  opacity: 0.2;
+  top: 50px;
+  right: 10px;
+  transition: all 0.3s ease-in-out;
+  color: #b7b7b7;
+}
+
+.albums li h3 {
+  font-size: 20px;
+  color: #b7b7b7;
+  margin-bottom: 5px;
+}
+
+.albums li p {
+  font-size: 16px;
+  line-height: 18px;
+  color: #b7b7b7;
+  margin-top: 5px;
+}
+
+.albums li:hover h2 {
+  top: 0;
+  opacity: 0.6;
+}
+
+.albums li button {
+  background: transparent;
+  border: 1px solid #b7b7b7;
+  padding: 10px 20px;
+  color: #b7b7b7;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.centerTitle {
+  text-align: center;
+}
+
+.centerNav {
+  transform: translateX(-3%);
+}
+
+.centerNavigationButtons {
+  transform: translateX(-1.5%);
+}

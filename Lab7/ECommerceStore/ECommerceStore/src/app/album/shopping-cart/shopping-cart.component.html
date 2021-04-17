@@ -1,32 +1,26 @@
-<h2>Shopping cart</h2>
+<h2 class="centerTitle">Shopping cart</h2>
 
 <div *ngIf="albums.length > 0; else emptyShoppingCart">
-  <table class="albums">
-    <tr>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Artist</th>
-      <th>Genre</th>
-      <th>Sales</th>
-      <th>Count</th>
-    </tr>
-    <tr *ngFor="let album of albums">
-      <td>{{album.ID}}</td>
-      <td>{{album.Title}}</td>
-      <td>{{album.Artist}}</td>
-      <td>{{album.Genre}}</td>
-      <td>{{album.Sales}}</td>
-      <td>{{album['TimesInCart']}}</td>
+  <ul class="albums">
+    <li *ngFor="let album of albums">
+      <h2>{{album.ID}}</h2>
+      <h3>{{album.Title}}</h3>
+      <p>{{album.Artist}}</p>
+      <p>{{album.Genre}}</p>
+      <p>{{album.Sales}}</p>
+      <p>Quantity: {{album['TimesInCart']}}</p>
       <button (click)="removeOneOccurrenceFromCart(album.ID)">Remove 1 from cart</button>
       <button (click)="removeAllOccurrencesFromCart(album.ID)">Remove all from cart</button>
-    </tr>
-  </table>
+    </li>
+  </ul>
 </div>
 
 <ng-template #emptyShoppingCart>
-  Shopping cart is empty
+  <div id="emptyShoppingCartLabel">Shopping cart is empty</div>
 </ng-template>
 <br>
 
-<button id="previousPageButton" (click)="goBackOnePage()">Previous page</button>
-<button id="nextPageButton" (click)="goForwardOnePage()">Next page</button>
+<ul class="centerNavigationButtons">
+  <button id="previousPageButton" (click)="goBackOnePage()">Previous page</button>
+  <button id="nextPageButton" (click)="goForwardOnePage()">Next page</button>
+</ul>
