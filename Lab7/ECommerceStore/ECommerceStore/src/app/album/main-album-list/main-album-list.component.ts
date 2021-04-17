@@ -34,6 +34,14 @@ export class MainAlbumListComponent implements OnInit {
     this.getAlbums();
   }
 
+  addToCart(albumID, quantity): void {
+    this.albumService.addAlbumToShoppingCart(albumID, quantity)
+      .subscribe(
+        response => console.log("albums in shopping cart = ", response),
+        error => console.log(error)
+      );
+  }
+
   parseResponse(response) {
     this.albumCount = response[0]['count'];
     response.shift();
@@ -45,7 +53,7 @@ export class MainAlbumListComponent implements OnInit {
       .subscribe(
         response => this.parseResponse(response),
         error => console.log(error),
-      )
+      );
   }
 
   goBackOnePage() {

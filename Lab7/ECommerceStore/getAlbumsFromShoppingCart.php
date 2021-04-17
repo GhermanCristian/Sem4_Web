@@ -1,7 +1,10 @@
 <?php
-header('Access-Control-Allow-Origin: *');
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+header('Access-Control-Allow-Credentials: true'); // the apache / angular servers are on different ports, so the PHP sessions won't work => we need this
+header('Access-Control-Allow-Origin: http://localhost:4200'); // we also can't use the wildcard because of that ^
 include 'DBConnection.php';
-session_start();
 
 $currentPage = $_GET["currentPage"];
 $elementsPerPage = $_GET["elementsPerPage"];
@@ -11,7 +14,6 @@ if (isset($_SESSION['elementCountInShoppingCart']) == false) {
     $_SESSION['elementCountInShoppingCart'] = [];
 }
 $array = $_SESSION['elementCountInShoppingCart'];
-$array[1] = 4; // just for testing the shopping cart page before implementing add to shopping cart
 
 $currentPosition = 1;
 foreach ($array as $currentIndex => $currentItemCount) {

@@ -19,6 +19,7 @@
     <td>{{album.Artist}}</td>
     <td>{{album.Genre}}</td>
     <td>{{album.Sales}}</td>
+    <button (click)="addToCart(album.ID, 1)">Add to cart</button>
   </tr>
 </table>
 <div>Total albums -> {{albumCount}}</div>

@@ -1,5 +1,9 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Origin: http://localhost:4200');
 
 if (isset($_SESSION['elementCountInShoppingCart']) == false) {
     $_SESSION['elementCountInShoppingCart'] = [];

@@ -6,6 +6,7 @@ import {Observable} from "rxjs";
 export class AlbumService {
   private allAlbumsURL = "http://localhost/lab8/getAlbums.php";
   private shoppingCartURL = "http://localhost/lab8/getAlbumsFromShoppingCart.php";
+  private addToShoppingCartURL = "http://localhost/lab8/addToShoppingCart.php";
 
   constructor(private httpClient: HttpClient) {
   }
@@ -25,7 +26,18 @@ export class AlbumService {
       params: {
         "currentPage": currentPage,
         "elementsPerPage": albumsPerPage
-      }
-    })
+      },
+      withCredentials: true, // the apache / angular servers are on different ports, so the PHP sessions won't work => we need this
+    });
+  }
+
+  addAlbumToShoppingCart(albumID, quantity): Observable<number> {
+    return this.httpClient.get<number>(this.addToShoppingCartURL, {
+      params: {
+        "modifiedElementID": albumID,
+        "itemCount": quantity
+      },
+      withCredentials: true,
+    });
   }
 }

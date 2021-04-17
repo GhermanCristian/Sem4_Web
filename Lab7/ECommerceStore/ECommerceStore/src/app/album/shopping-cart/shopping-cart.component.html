@@ -1,0 +1,30 @@
+<h2>Shopping cart</h2>
+
+<div *ngIf="albums.length > 0; else emptyShoppingCart">
+  <table class="albums">
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Artist</th>
+      <th>Genre</th>
+      <th>Sales</th>
+      <th>Count</th>
+    </tr>
+    <tr *ngFor="let album of albums">
+      <td>{{album.ID}}</td>
+      <td>{{album.Title}}</td>
+      <td>{{album.Artist}}</td>
+      <td>{{album.Genre}}</td>
+      <td>{{album.Sales}}</td>
+      <td>{{album['TimesInCart']}}</td>
+    </tr>
+  </table>
+</div>
+
+<ng-template #emptyShoppingCart>
+  Shopping cart is empty
+</ng-template>
+<br>
+
+<button id="previousPageButton" (click)="goBackOnePage()">Previous page</button>
+<button id="nextPageButton" (click)="goForwardOnePage()">Next page</button>

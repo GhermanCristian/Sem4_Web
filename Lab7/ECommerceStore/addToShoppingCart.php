@@ -1,13 +1,15 @@
 <?php
-session_start();
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+header('Access-Control-Allow-Credentials: true');
+header('Access-Control-Allow-Origin: http://localhost:4200');
 if (isset($_SESSION['elementCountInShoppingCart']) == false) {
     $_SESSION['elementCountInShoppingCart'] = [];
 }
 
 $modifiedElementID = $_GET["modifiedElementID"];
 $itemCount = $_GET["itemCount"];
-
 if ($modifiedElementID != -1) { // id = -1 => we only want the number of elements in the cart (perhaps do another php file just for this ?)
     if (isset($_SESSION['elementCountInShoppingCart'][$modifiedElementID]) == true) {
         $_SESSION['elementCountInShoppingCart'][$modifiedElementID] += $itemCount; // add an element that already exists
