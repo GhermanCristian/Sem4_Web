@@ -27,7 +27,7 @@ export class ShoppingCartComponent implements OnInit {
       .subscribe(
         response => this.albums = response,
         error => console.log(error),
-      )
+      );
   }
 
   goBackOnePage() {
@@ -42,5 +42,22 @@ export class ShoppingCartComponent implements OnInit {
   goForwardOnePage() {
     this.currentPage += 1;
     this.getAlbumsFromShoppingCart();
+  }
+
+  private removeFromCart(ID: number, removeOne: boolean) {
+    this.albumService.removeFromShoppingCart(ID, removeOne)
+      .subscribe(
+        response => console.log(response), // it's always gonna be null, but I'm not sure how to remove it
+        error => console.log(error),
+      );
+    this.getAlbumsFromShoppingCart();
+  }
+
+  removeOneOccurrenceFromCart(ID: number) {
+    this.removeFromCart(ID, true);
+  }
+
+  removeAllOccurrencesFromCart(ID: number) {
+    this.removeFromCart(ID, false);
   }
 }

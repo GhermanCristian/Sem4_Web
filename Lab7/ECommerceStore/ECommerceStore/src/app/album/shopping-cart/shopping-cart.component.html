@@ -17,6 +17,8 @@
       <td>{{album.Genre}}</td>
       <td>{{album.Sales}}</td>
       <td>{{album['TimesInCart']}}</td>
+      <button (click)="removeOneOccurrenceFromCart(album.ID)">Remove 1 from cart</button>
+      <button (click)="removeAllOccurrencesFromCart(album.ID)">Remove all from cart</button>
     </tr>
   </table>
 </div>

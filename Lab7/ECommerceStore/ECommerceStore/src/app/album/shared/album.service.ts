@@ -7,6 +7,7 @@ export class AlbumService {
   private allAlbumsURL = "http://localhost/lab8/getAlbums.php";
   private shoppingCartURL = "http://localhost/lab8/getAlbumsFromShoppingCart.php";
   private addToShoppingCartURL = "http://localhost/lab8/addToShoppingCart.php";
+  private removeFromShoppingCartURL = "http://localhost/lab8/removeFromShoppingCart.php";
 
   constructor(private httpClient: HttpClient) {
   }
@@ -36,6 +37,16 @@ export class AlbumService {
       params: {
         "modifiedElementID": albumID,
         "itemCount": quantity
+      },
+      withCredentials: true,
+    });
+  }
+
+  removeFromShoppingCart(albumID, removeOne): Observable<any> {
+    return this.httpClient.get<any>(this.removeFromShoppingCartURL, {
+      params: {
+        "modifiedElementID": albumID,
+        "removeOne": removeOne
       },
       withCredentials: true,
     });
