@@ -16,6 +16,7 @@ class GameEngine {
         this.snake = [{x: 1, y: 3}, {x: 1, y: 2}, {x: 1, y: 1}, {x: 1, y: 0}, ];
         this.boardCanvas = document.getElementById("boardCanvas");
         this.boardContext = this.boardCanvas.getContext("2d");
+        this.score = 0;
 
         const gameEngineObj = this;
         $(document).keydown(function(event) {
@@ -63,7 +64,7 @@ class GameEngine {
 
     endGame() {
         this.running = false;
-        $("#gameStatus").html("<p>Game Over</p>");
+        $("#gameStatus").html("<p>Game over. Score = " + this.score + "</p>");
     }
 
     moveSnakeOneStep() {
@@ -76,6 +77,8 @@ class GameEngine {
             this.endGame();
         }
         if (newHead.x === this.nextFoodCoordinates.x && newHead.y === this.nextFoodCoordinates.y) { // on the food coord
+            this.score++;
+            $("#gameStatus").html("<p>Score: " + this.score + "</p>");
             this.generateNewFoodCoordinates(); // when on food we don't remove the tail because we 'increase' the snake by 1
         }
         else {
