@@ -21,6 +21,20 @@ class GameEngine {
         $(document).keydown(function(event) {
             return gameEngineObj.pressKey(event);
         });
+
+        this.generateNewFoodCoordinates();
+    }
+
+    generateNewFoodCoordinates() {
+        let foundCoords = false;
+        do{
+            let newCoords = {x: Math.floor(Math.random() * BOARD_SIZE), y: Math.floor(Math.random() * BOARD_SIZE)};
+            if (! this.snake.includes(newCoords)) {
+                this.nextFoodCoordinates = newCoords;
+                foundCoords = true;
+            }
+        }
+        while(! foundCoords);
     }
 
     drawSnakePart(snakePart) {
@@ -42,6 +56,11 @@ class GameEngine {
         this.snake.forEach(snakePart => this.drawSnakePart(snakePart));
     }
 
+    drawFood() {
+        this.boardContext.fillStyle = 'red';
+        this.boardContext.fillRect(this.nextFoodCoordinates.x * TILE_SIZE, this.nextFoodCoordinates.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    }
+
     endGame() {
         this.running = false;
         $("#gameStatus").html("<p>Game Over</p>");
@@ -56,8 +75,13 @@ class GameEngine {
         if (newHead.x < 0 || newHead.x >= BOARD_SIZE || newHead.y < 0 || newHead.y >= BOARD_SIZE) {
             this.endGame();
         }
+        if (newHead.x === this.nextFoodCoordinates.x && newHead.y === this.nextFoodCoordinates.y) { // on the food coord
+            this.generateNewFoodCoordinates(); // when on food we don't remove the tail because we 'increase' the snake by 1
+        }
+        else {
+            this.snake.pop();
+        }
         this.snake.unshift(newHead);
-        this.snake.pop();
         // send request to server with the move
     }
 
@@ -76,10 +100,11 @@ class GameEngine {
         setTimeout(function() {
             if (gameEngineObject.running === true) {
                 gameEngineObject.drawSnake();
+                gameEngineObject.drawFood();
                 gameEngineObject.moveSnakeOneStep();
                 gameEngineObject.gameLoop();
             }
-        }, 500);
+        }, 300);
     }
 }
 
