@@ -41,13 +41,21 @@ class GameEngine {
         this.clearBoard();
         this.snake.forEach(snakePart => this.drawSnakePart(snakePart));
     }
-    
+
+    endGame() {
+        this.running = false;
+        $("#gameStatus").html("<p>Game Over</p>");
+    }
+
     moveSnakeOneStep() {
         if (this.pressedKeyCode === -1) {
             return;
         }
 
         let newHead = {x: this.snake[0].x + DIRECTIONS_X[this.pressedKeyCode], y: this.snake[0].y + DIRECTIONS_Y[this.pressedKeyCode]};
+        if (newHead.x < 0 || newHead.x >= BOARD_SIZE || newHead.y < 0 || newHead.y >= BOARD_SIZE) {
+            this.endGame();
+        }
         this.snake.unshift(newHead);
         this.snake.pop();
         // send request to server with the move
@@ -59,7 +67,7 @@ class GameEngine {
             this.pressedKeyCode = event.which - LEFT_ARROW_CODE;
         }
         else if (event.which === ESC_CODE) {
-            this.running = false;
+            this.endGame();
         }
     }
 
