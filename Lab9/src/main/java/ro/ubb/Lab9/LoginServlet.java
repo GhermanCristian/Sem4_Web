@@ -45,10 +45,10 @@ public class LoginServlet extends HttpServlet {
         response.setContentType("text/html");
         RequestDispatcher redirect = null;
         if (this.areCredentialsValid(request.getParameter("username"), request.getParameter("password"))) {
-            redirect = request.getRequestDispatcher("/game.jsp");
+            redirect = request.getRequestDispatcher("/game.html");
         }
         else {
-            redirect = request.getRequestDispatcher("/loginError.jsp");
+            redirect = request.getRequestDispatcher("/loginError.html");
         }
         redirect.forward(request, response);
     }
