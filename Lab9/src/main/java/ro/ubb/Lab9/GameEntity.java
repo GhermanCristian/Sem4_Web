@@ -1,5 +1,6 @@
 package ro.ubb.Lab9;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,11 +12,15 @@ public class GameEntity {
     private int userID;
     private boolean status;
     private int score;
-    List<CoordinatePair> snake;
-    List<CoordinatePair> obstacles;
-    CoordinatePair foodPosition;
+    private List<CoordinatePair> snake;
+    private List<CoordinatePair> obstacles;
+    private CoordinatePair foodPosition;
+    private int directionCode;
 
-    public GameEntity() {}
+    public GameEntity() {
+        this.snake = new ArrayList<>();
+        this.obstacles = new ArrayList<>();
+    }
 
     public GameEntity(int ID,
                       int userID,
@@ -23,7 +28,8 @@ public class GameEntity {
                       int score,
                       List<CoordinatePair> snake,
                       List<CoordinatePair> obstacles,
-                      CoordinatePair foodPosition) {
+                      CoordinatePair foodPosition,
+                      int directionCode) {
         this.ID = ID;
         this.userID = userID;
         this.status = status;
@@ -31,6 +37,7 @@ public class GameEntity {
         this.snake = snake;
         this.obstacles = obstacles;
         this.foodPosition = foodPosition;
+        this.directionCode = directionCode;
     }
 
     @Override
@@ -38,12 +45,12 @@ public class GameEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GameEntity that = (GameEntity) o;
-        return ID == that.ID && userID == that.userID && status == that.status && score == that.score && snake.equals(that.snake) && obstacles.equals(that.obstacles) && foodPosition.equals(that.foodPosition);
+        return ID == that.ID && userID == that.userID && status == that.status && score == that.score && snake.equals(that.snake) && obstacles.equals(that.obstacles) && foodPosition.equals(that.foodPosition) && directionCode == that.directionCode;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, userID, status, score, snake, obstacles, foodPosition);
+        return Objects.hash(ID, userID, status, score, snake, obstacles, foodPosition, directionCode);
     }
 
     public int getID() {
@@ -130,5 +137,13 @@ public class GameEntity {
 
     public void setFoodPosition(String foodPositionAsString) {
         this.foodPosition = new CoordinatePair(foodPositionAsString);
+    }
+
+    public int getDirectionCode() {
+        return this.directionCode;
+    }
+
+    public void setDirectionCode(int directionCode) {
+        this.directionCode = directionCode;
     }
 }
