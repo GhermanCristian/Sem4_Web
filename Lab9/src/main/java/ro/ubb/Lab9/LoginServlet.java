@@ -17,6 +17,22 @@ import java.sql.SQLException;
 public class LoginServlet extends HttpServlet {
     private int getCount(String username, String password, Connection connection) throws SQLException {
         PreparedStatement checkCredentials = connection.prepareStatement("SELECT COUNT(*) FROM user WHERE username = ? AND password = ?");
+        return retrieveValue(username, password, checkCredentials);
+    }
+
+    private int getUserID(String username, String password){
+        int userID = 0;
+        try(Connection connection = DBConnection.initializeDB()) {
+            PreparedStatement checkCredentials = connection.prepareStatement("SELECT ID FROM user WHERE username = ? AND password = ?");
+            userID = retrieveValue(username, password, checkCredentials);
+        }
+        catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+        return userID;
+    }
+
+    private int retrieveValue(String username, String password, PreparedStatement checkCredentials) throws SQLException {
         checkCredentials.setString(1, username);
         checkCredentials.setString(2, password);
         ResultSet result = checkCredentials.executeQuery();
@@ -48,6 +64,7 @@ public class LoginServlet extends HttpServlet {
         if (this.areCredentialsValid(request.getParameter("username"), request.getParameter("password"))) {
             HttpSession session = request.getSession();
             session.setAttribute("login", "true");
+            session.setAttribute("userID", this.getUserID(request.getParameter("username"), request.getParameter("password")));
             response.sendRedirect("game.jsp");
         }
         else {

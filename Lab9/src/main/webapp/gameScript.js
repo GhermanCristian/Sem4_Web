@@ -158,5 +158,6 @@ class GameEngine {
 $(document).ready(function() {
     // make get request to server => get snake, obstacles, food, score, running
     const gameEngine = new GameEngine();
+    let userID = 0; // in order to get the actual userID, make a request to the server (just once)
     gameEngine.gameLoop();
 });
