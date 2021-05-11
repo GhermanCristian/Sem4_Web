@@ -49,5 +49,9 @@ public class GameServlet extends HttpServlet {
             response.setCharacterEncoding("UTF-8");
             out.print(this.convertGameToJSON(currentGame));
         }
+
+        else if(request.getParameter("changeDirection") != null) {
+            this.gameService.changeDirection(Integer.parseInt(request.getParameter("changeDirection")), (int)request.getSession().getAttribute("gameID"));
+        }
     }
 }

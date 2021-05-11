@@ -71,9 +71,14 @@ class GameEngine {
         let validKeys = [LEFT_ARROW_CODE, UP_ARROW_CODE, RIGHT_ARROW_CODE, DOWN_ARROW_CODE];
         if (validKeys.includes(event.which)) {
             this.directionCode = event.which - LEFT_ARROW_CODE;
+            let gameEngineObject = this;
+            $.get("game", {changeDirection: this.directionCode}).done(function() {
+                ;
+            });
         }
         else if (event.which === ESC_CODE) {
-            this.endGame();
+            //this.endGame();
+            // send end game request to server
         }
     }
 

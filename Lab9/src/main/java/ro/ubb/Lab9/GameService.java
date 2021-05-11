@@ -8,8 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GameService {
     private List<GameEntity> games;
-    private final int[] directionsX = {0, 1, 0, -1};
-    private final int[] directionsY = {-1, 0, 1, 0};
+    private final int[] directionsX = {-1, 0, 1, 0};
+    private final int[] directionsY = {0, -1, 0, 1};
 
     public GameService() {
         this.games = new ArrayList<>();
@@ -44,15 +44,17 @@ public class GameService {
         GameEntity newGame = new GameEntity();
         newGame.setID(0);
         newGame.setUserID(userID);
-        newGame.setStatus(true);
+        newGame.setStatus(false);
         newGame.setScore(0);
-        newGame.setSnake(Arrays.asList(new CoordinatePair(1, 5), new CoordinatePair(1, 4), new CoordinatePair(1, 3), new CoordinatePair(1, 2), new CoordinatePair(1, 1), new CoordinatePair(1, 0)));
+        for (int y = 5; y >= 0; y--) {
+            newGame.getSnake().add(new CoordinatePair(1, y));
+        } // can't use arrays.asList because we will need to add/remove from this, and it would've been read only
         newGame.setFoodPosition(this.generateFoodCoordinates(newGame.getSnake(), newGame.getObstacles()));
         newGame.setObstacles(new ArrayList<>());
         for (int i = 0; i < GameEntity.OBSTACLE_COUNT; i++) {
             newGame.getObstacles().add(this.generateObstacleCoordinates(newGame.getSnake(), newGame.getObstacles(), newGame.getFoodPosition()));
         }
-        newGame.setDirectionCode(0);
+        newGame.setDirectionCode(2); // workaround so that when the game starts automatically, the snake doesn't hit itself (it goes straight down)
         return newGame;
     }
 
@@ -114,12 +116,13 @@ public class GameService {
 
     private void updateGameInDB(GameEntity game) {
         try(Connection connection = DBConnection.initializeDB()) {
-            PreparedStatement updateGame = connection.prepareStatement("UPDATE game SET status = ?, score = ?, snake = ?, food = ? WHERE ID = ?");
+            PreparedStatement updateGame = connection.prepareStatement("UPDATE game SET status = ?, score = ?, snake = ?, food = ?, directionCode = ? WHERE ID = ?");
             updateGame.setBoolean(1, game.getStatus());
             updateGame.setInt(2, game.getScore());
             updateGame.setString(3, game.getSnakeAsString());
             updateGame.setString(4, game.getFoodPosition().toString());
-            updateGame.setInt(5, game.getID());
+            updateGame.setInt(5, game.getDirectionCode());
+            updateGame.setInt(6, game.getID());
             updateGame.executeUpdate();
             updateGame.close();
         }
@@ -138,7 +141,7 @@ public class GameService {
         CoordinatePair newHead = new CoordinatePair(snakeHead.x + this.directionsX[currentGame.getDirectionCode()], snakeHead.y + this.directionsY[currentGame.getDirectionCode()]);
 
         if (newHead.x < 0 || newHead.x >= GameEntity.BOARD_SIZE || newHead.y < 0 || newHead.y >= GameEntity.BOARD_SIZE ||
-            currentGame.getSnake().contains(newHead) || currentGame.getObstacles().contains(newHead) || currentGame.getFoodPosition().equals(newHead)) {
+            currentGame.getSnake().contains(newHead) || currentGame.getObstacles().contains(newHead)) {
             // end game
             currentGame.setStatus(true);
             return currentGame;
@@ -150,12 +153,19 @@ public class GameService {
         }
         else {
             // normally we should check that the snake length > 0, but that will never be the case
-            currentGame.getSnake().remove(currentGame.getSnake().size() - 1);
+            int lastPosition = currentGame.getSnake().size() - 1;
+            currentGame.getSnake().remove(lastPosition);
         }
 
         currentGame.getSnake().add(0, newHead);
         this.updateGameInDB(currentGame);
 
         return currentGame;
+    }
+
+    public void changeDirection(int newDirectionCode, int gameID) {
+        GameEntity currentGame = this.games.stream().filter(game -> game.getID() == gameID).findFirst().orElseThrow(RuntimeException::new);
+        currentGame.setDirectionCode(newDirectionCode);
+        this.updateGameInDB(currentGame);
     }
 }
