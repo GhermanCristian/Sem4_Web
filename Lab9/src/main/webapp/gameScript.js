@@ -13,7 +13,7 @@ class GameEngine {
     constructor() {
         this.pressedKeyCode = -1;
         this.running = true;
-        this.snake = [{x: 1, y: 3}, {x: 1, y: 2}, {x: 1, y: 1}, {x: 1, y: 0}, ];
+        this.snake = [{x: 1, y: 5}, {x: 1, y: 4}, {x: 1, y: 3}, {x: 1, y: 2}, {x: 1, y: 1}, {x: 1, y: 0}, ];
         this.boardCanvas = document.getElementById("boardCanvas");
         this.boardContext = this.boardCanvas.getContext("2d");
         this.score = 0;
@@ -26,11 +26,20 @@ class GameEngine {
         this.generateNewFoodCoordinates();
     }
 
+    snakeContains(newCoords) {
+        for (let i = 0; i < this.snake.length; i++) {
+            if (this.snake[i].x === newCoords.x && this.snake[i].y === newCoords.y) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     generateNewFoodCoordinates() {
         let foundCoords = false;
         do{
             let newCoords = {x: Math.floor(Math.random() * BOARD_SIZE), y: Math.floor(Math.random() * BOARD_SIZE)};
-            if (! this.snake.includes(newCoords)) {
+            if (! this.snakeContains(newCoords)) {
                 this.nextFoodCoordinates = newCoords;
                 foundCoords = true;
             }
@@ -71,9 +80,11 @@ class GameEngine {
         if (this.pressedKeyCode === -1) {
             return;
         }
-
         let newHead = {x: this.snake[0].x + DIRECTIONS_X[this.pressedKeyCode], y: this.snake[0].y + DIRECTIONS_Y[this.pressedKeyCode]};
         if (newHead.x < 0 || newHead.x >= BOARD_SIZE || newHead.y < 0 || newHead.y >= BOARD_SIZE) {
+            this.endGame();
+        }
+        if (this.snakeContains(newHead)) {
             this.endGame();
         }
         if (newHead.x === this.nextFoodCoordinates.x && newHead.y === this.nextFoodCoordinates.y) { // on the food coord
@@ -107,7 +118,7 @@ class GameEngine {
                 gameEngineObject.moveSnakeOneStep();
                 gameEngineObject.gameLoop();
             }
-        }, 300);
+        }, 100);
     }
 }
 
