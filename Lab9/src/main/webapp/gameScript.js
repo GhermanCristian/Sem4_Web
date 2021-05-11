@@ -9,7 +9,7 @@ const RIGHT_ARROW_CODE = 39;
 const DOWN_ARROW_CODE = 40;
 const ESC_CODE = 27;
 
-const OBSTACLE_COUNT = 4;
+const OBSTACLE_COUNT = 10;
 
 class GameEngine {
     constructor() {
@@ -156,6 +156,7 @@ class GameEngine {
 }
 
 $(document).ready(function() {
+    // make get request to server => get snake, obstacles, food, score, running
     const gameEngine = new GameEngine();
     gameEngine.gameLoop();
 });

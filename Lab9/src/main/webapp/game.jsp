@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+<%
+    String isLoggedIn = (String) session.getAttribute("login");
+    if (isLoggedIn == null || !isLoggedIn.equals("true")) {
+        response.sendRedirect("loginError.html");
+        return;
+    }
+%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
