@@ -12,7 +12,9 @@ const ESC_CODE = 27;
 const OBSTACLE_COUNT = 10;
 
 class GameEngine {
-    constructor() {
+    constructor(userID) {
+        this.userID = userID;
+        console.log("user = ", this.userID);
         this.pressedKeyCode = -1;
         this.running = true;
         this.snake = [{x: 1, y: 5}, {x: 1, y: 4}, {x: 1, y: 3}, {x: 1, y: 2}, {x: 1, y: 1}, {x: 1, y: 0}, ];
@@ -156,8 +158,8 @@ class GameEngine {
 }
 
 $(document).ready(function() {
-    // make get request to server => get snake, obstacles, food, score, running
-    const gameEngine = new GameEngine();
-    let userID = 0; // in order to get the actual userID, make a request to the server (just once)
-    gameEngine.gameLoop();
+    $.get("game", {startGame: "true"}).done(function(response) {
+        const gameEngine = new GameEngine(parseInt(response["userID"]));
+        gameEngine.gameLoop();
+    });
 });
