@@ -77,17 +77,31 @@ class GameEngine {
         }
     }
 
+    setVolatileData(response) {
+        // volatile data = that which changes after each move
+        this.directionCode = parseInt(response["directionCode"]);
+        this.status = (response["status"] === "true"); // parse boolean
+        this.snake = parseCoordinates(response["snake"]);
+        this.score = parseInt(response["score"]);
+        this.nextFoodCoordinates = parseCoordinate(response["food"]);
+    }
+
     gameLoop() {
-        this.drawEverything();
-        /*let gameEngineObject = this;
+        let gameEngineObject = this;
         $.get("game", {moveOneStep: "true"}).done(function(response) {
-            if (response["status"] === "true") {
-                gameEngineObject.endGame();
-            }
-            else {
-                gameEngineObject.gameLoop();
-            }
-        });*/
+            setTimeout(function() {
+                gameEngineObject.setVolatileData(response);
+                if (response["status"] === true) {
+                    gameEngineObject.endGame();
+                    gameEngineObject.drawEverything();
+                }
+                else {
+                    gameEngineObject.drawEverything();
+                    gameEngineObject.gameLoop();
+                }
+            }, 100);
+
+        });
     }
 }
 
@@ -109,14 +123,10 @@ function parseCoordinates(coordinatesAsString) {
 $(document).ready(function() {
     $.get("game", {startGame: "true"}).done(function(response) {
         const gameEngine = new GameEngine();
+        gameEngine.setVolatileData(response);
         gameEngine.userID = parseInt(response["userID"]);
-        gameEngine.directionCode = parseInt(response["directionCode"]);
-        gameEngine.status = (response["status"] === "true"); // parse boolean
-        gameEngine.snake = parseCoordinates(response["snake"]);
         gameEngine.obstacles = parseCoordinates(response["obstacles"]);
-        gameEngine.score = parseInt(response["score"]);
-        gameEngine.nextFoodCoordinates = parseCoordinate(response["food"]);
-
+        gameEngine.drawEverything();
         gameEngine.gameLoop();
     });
 });
