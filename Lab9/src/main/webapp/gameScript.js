@@ -61,6 +61,7 @@ class GameEngine {
         this.drawSnake();
         this.drawFood();
         this.drawObstacles();
+        $("#gameStatus").html("<p>Score: " + this.score + "</p>");
     }
 
     endGame() {
