@@ -37,7 +37,7 @@ public class GameServlet extends HttpServlet {
 
             JSONObject game = this.convertGameToJSON(currentGame);
             // when sending for the first time we also need some extra one-time arguments, which don't change between moves
-            game.put("userID", request.getSession().getAttribute("userID"));
+            game.put("username", request.getSession().getAttribute("username"));
             game.put("obstacles", currentGame.getObstaclesAsString());
             out.print(game);
         }

@@ -15,7 +15,7 @@
 <body>
     <h1>sss</h1>
     <canvas id="boardCanvas" width="400" height="400"></canvas>
-    <p>You are user <%=session.getAttribute("userID")%></p>
+    <p id="nameTag">You are user </p>
     <p id="gameStatus">Score: </p>
     <a href="logout.jsp">Logout</a>
 </body>

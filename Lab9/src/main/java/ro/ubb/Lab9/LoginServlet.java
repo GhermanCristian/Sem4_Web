@@ -65,6 +65,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("login", "true");
             session.setAttribute("userID", this.getUserID(request.getParameter("username"), request.getParameter("password")));
+            session.setAttribute("username", request.getParameter("username"));
             response.sendRedirect("game.jsp");
         }
         else {

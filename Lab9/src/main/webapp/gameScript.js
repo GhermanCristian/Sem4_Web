@@ -8,7 +8,6 @@ const ESC_CODE = 27;
 
 class GameEngine {
     constructor() {
-        this.userID = 0;
         this.directionCode = -1;
         this.status = true;
         this.snake = [];
@@ -130,7 +129,7 @@ $(document).ready(function() {
     $.get("game", {startGame: "true"}).done(function(response) {
         const gameEngine = new GameEngine();
         gameEngine.setVolatileData(response);
-        gameEngine.userID = parseInt(response["userID"]);
+        $("#nameTag").html("<p>You are user: " + response["username"] + "</p>");
         gameEngine.obstacles = parseCoordinates(response["obstacles"]);
         gameEngine.drawEverything();
         gameEngine.gameLoop();
