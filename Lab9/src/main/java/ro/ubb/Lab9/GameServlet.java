@@ -20,7 +20,6 @@ public class GameServlet extends HttpServlet {
         game.put("score", currentGame.getScore());
         game.put("snake", currentGame.getSnakeAsString());
         game.put("food", currentGame.getFoodPosition().toString());
-        game.put("directionCode", currentGame.getDirectionCode());
         return game;
     }
 

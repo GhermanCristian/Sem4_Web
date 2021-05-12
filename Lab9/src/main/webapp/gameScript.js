@@ -8,7 +8,6 @@ const ESC_CODE = 27;
 
 class GameEngine {
     constructor() {
-        this.directionCode = -1;
         this.status = true;
         this.snake = [];
         this.obstacles = [];
@@ -70,9 +69,8 @@ class GameEngine {
     pressKey(event) {
         let validKeys = [LEFT_ARROW_CODE, UP_ARROW_CODE, RIGHT_ARROW_CODE, DOWN_ARROW_CODE];
         if (validKeys.includes(event.which)) {
-            this.directionCode = event.which - LEFT_ARROW_CODE;
-            let gameEngineObject = this;
-            $.get("game", {changeDirection: this.directionCode}).done(function() {
+            let directionCode = event.which - LEFT_ARROW_CODE;
+            $.get("game", {changeDirection: directionCode}).done(function() {
                 ;
             });
         }
@@ -84,7 +82,6 @@ class GameEngine {
 
     setVolatileData(response) {
         // volatile data = that which changes after each move
-        this.directionCode = parseInt(response["directionCode"]);
         this.status = (response["status"] === "true"); // parse boolean
         this.snake = parseCoordinates(response["snake"]);
         this.score = parseInt(response["score"]);
