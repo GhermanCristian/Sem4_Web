@@ -8,11 +8,7 @@ const ESC_CODE = 27;
 
 class GameEngine {
     constructor() {
-        this.status = true;
-        this.snake = [];
         this.obstacles = [];
-        this.score = 0;
-        this.nextFoodCoordinates = {x: 0, y: 0};
         this.boardCanvas = document.getElementById("boardCanvas");
         this.boardContext = this.boardCanvas.getContext("2d");
 
@@ -36,13 +32,13 @@ class GameEngine {
         this.boardContext.strokeRect(0, 0, 400, 400);
     }
 
-    drawSnake() {
-        this.snake.forEach(snakePart => this.drawSnakePart(snakePart));
+    drawSnake(snake) {
+        snake.forEach(snakePart => this.drawSnakePart(snakePart));
     }
 
-    drawFood() {
+    drawFood(nextFoodCoordinates) {
         this.boardContext.fillStyle = 'red';
-        this.boardContext.fillRect(this.nextFoodCoordinates.x * TILE_SIZE, this.nextFoodCoordinates.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        this.boardContext.fillRect(nextFoodCoordinates.x * TILE_SIZE, nextFoodCoordinates.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
     }
 
     drawObstacle(obstacle) {
@@ -54,16 +50,16 @@ class GameEngine {
         this.obstacles.forEach(obstacle => this.drawObstacle(obstacle));
     }
 
-    drawEverything() {
+    drawEverything(snake, nextFoodCoordinates, score) {
         this.clearBoard();
-        this.drawSnake();
-        this.drawFood();
+        this.drawSnake(snake);
+        this.drawFood(nextFoodCoordinates);
         this.drawObstacles();
-        $("#gameStatus").html("<p>Score: " + this.score + "</p>");
+        $("#gameStatus").html("<p>Score: " + score + "</p>");
     }
 
-    endGame() {
-        $("#gameStatus").html("<p>Game over. Score = " + this.score + "</p>");
+    endGame(score) {
+        $("#gameStatus").html("<p>Game over. Score = " + score + "</p>");
     }
 
     pressKey(event) {
@@ -71,7 +67,7 @@ class GameEngine {
         if (validKeys.includes(event.which)) {
             let directionCode = event.which - LEFT_ARROW_CODE;
             $.get("game", {changeDirection: directionCode}).done(function() {
-                ;
+                // this request should be a put or sth
             });
         }
         else if (event.which === ESC_CODE) {
@@ -80,25 +76,21 @@ class GameEngine {
         }
     }
 
-    setVolatileData(response) {
-        // volatile data = that which changes after each move
-        this.status = (response["status"] === "true"); // parse boolean
-        this.snake = parseCoordinates(response["snake"]);
-        this.score = parseInt(response["score"]);
-        this.nextFoodCoordinates = parseCoordinate(response["food"]);
-    }
-
     gameLoop() {
         let gameEngineObject = this;
         $.get("game", {moveOneStep: "true"}).done(function(response) {
             setTimeout(function() {
-                gameEngineObject.setVolatileData(response);
-                if (response["status"] === true) {
-                    gameEngineObject.endGame();
-                    gameEngineObject.drawEverything();
+                let status = response["status"]; // apparently this was boolean
+                let snake = parseCoordinates(response["snake"]);
+                let score = parseInt(response["score"]);
+                let nextFoodCoordinates = parseCoordinate(response["food"]);
+                console.log(typeof response["status"]);
+                if (status === true) { // game has ended
+                    gameEngineObject.endGame(score);
+                    gameEngineObject.drawEverything(snake, nextFoodCoordinates, score);
                 }
                 else {
-                    gameEngineObject.drawEverything();
+                    gameEngineObject.drawEverything(snake, nextFoodCoordinates, score);
                     gameEngineObject.gameLoop();
                 }
             }, 100);
@@ -125,10 +117,9 @@ function parseCoordinates(coordinatesAsString) {
 $(document).ready(function() {
     $.get("game", {startGame: "true"}).done(function(response) {
         const gameEngine = new GameEngine();
-        gameEngine.setVolatileData(response);
         $("#nameTag").html("<p>You are user: " + response["username"] + "</p>");
         gameEngine.obstacles = parseCoordinates(response["obstacles"]);
-        gameEngine.drawEverything();
+        gameEngine.drawEverything(parseCoordinates(response["snake"]), parseCoordinate(response["food"]), parseInt(response["score"]));
         gameEngine.gameLoop();
     });
 });
