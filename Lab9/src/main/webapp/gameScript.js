@@ -59,7 +59,7 @@ class GameEngine {
     }
 
     endGame(score) {
-        $("#gameStatus").html("<p>Game over. Score = " + score + "</p>");
+        $("#gameStatus").html("Game over. Score = " + score);
     }
 
     pressKey(event) {
@@ -67,7 +67,7 @@ class GameEngine {
         if (validKeys.includes(event.which)) {
             let directionCode = event.which - LEFT_ARROW_CODE;
             $.get("game", {changeDirection: directionCode}).done(function() {
-                // this request should be a put or sth
+                // this request should be a put
             });
         }
         else if (event.which === ESC_CODE) {
@@ -80,17 +80,13 @@ class GameEngine {
         let gameEngineObject = this;
         $.get("game", {moveOneStep: "true"}).done(function(response) {
             setTimeout(function() {
-                let status = response["status"]; // apparently this was boolean
-                let snake = parseCoordinates(response["snake"]);
                 let score = parseInt(response["score"]);
-                let nextFoodCoordinates = parseCoordinate(response["food"]);
-                console.log(typeof response["status"]);
-                if (status === true) { // game has ended
+
+                gameEngineObject.drawEverything(parseCoordinates(response["snake"]), parseCoordinate(response["food"]), score);
+                if (response["status"] === true) { // game has ended
                     gameEngineObject.endGame(score);
-                    gameEngineObject.drawEverything(snake, nextFoodCoordinates, score);
                 }
                 else {
-                    gameEngineObject.drawEverything(snake, nextFoodCoordinates, score);
                     gameEngineObject.gameLoop();
                 }
             }, 100);

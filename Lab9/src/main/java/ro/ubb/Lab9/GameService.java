@@ -2,8 +2,10 @@ package ro.ubb.Lab9;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class GameService {
     private List<GameEntity> games;
@@ -82,6 +84,25 @@ public class GameService {
         catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public List<ResultEntity> getLeaderboard() {
+        List<ResultEntity> results = new ArrayList<>();
+        try(Connection connection = DBConnection.initializeDB()) {
+            Statement selectAll = connection.createStatement();
+            ResultSet sortedGames = selectAll.executeQuery("SELECT U.username, G.score, G.gameLength FROM game G INNER JOIN user U ON G.userID = U.ID ORDER BY G.score DESC LIMIT 20");
+            sortedGames.next();
+            while (sortedGames.next()) {
+                ResultEntity result = new ResultEntity(sortedGames.getString(1), sortedGames.getInt(2), sortedGames.getLong(3));
+                results.add(result);
+            }
+            sortedGames.close();
+            selectAll.close();
+        }
+        catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+        return results;
     }
 
     private GameEntity addNewGameToDB(int userID) {

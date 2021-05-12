@@ -17,6 +17,8 @@
     <canvas id="boardCanvas" width="400" height="400"></canvas>
     <p id="nameTag">You are user </p>
     <p id="gameStatus">Score: </p>
+    <a href="leaderboard.jsp">Check leaderboard (will invalidate current game)</a>
+    <br>
     <a href="logout.jsp">Logout</a>
 </body>
 </html>
