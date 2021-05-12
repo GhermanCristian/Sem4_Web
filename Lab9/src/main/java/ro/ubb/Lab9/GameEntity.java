@@ -16,6 +16,7 @@ public class GameEntity {
     private List<CoordinatePair> obstacles;
     private CoordinatePair foodPosition;
     private int directionCode;
+    private long gameLength; // in miliseconds
 
     public GameEntity() {
         this.snake = new ArrayList<>();
@@ -29,7 +30,8 @@ public class GameEntity {
                       List<CoordinatePair> snake,
                       List<CoordinatePair> obstacles,
                       CoordinatePair foodPosition,
-                      int directionCode) {
+                      int directionCode,
+                      long gameLength) {
         this.ID = ID;
         this.userID = userID;
         this.status = status;
@@ -38,6 +40,7 @@ public class GameEntity {
         this.obstacles = obstacles;
         this.foodPosition = foodPosition;
         this.directionCode = directionCode;
+        this.gameLength = gameLength;
     }
 
     @Override
@@ -45,12 +48,12 @@ public class GameEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GameEntity that = (GameEntity) o;
-        return ID == that.ID && userID == that.userID && status == that.status && score == that.score && snake.equals(that.snake) && obstacles.equals(that.obstacles) && foodPosition.equals(that.foodPosition) && directionCode == that.directionCode;
+        return ID == that.ID && userID == that.userID && status == that.status && score == that.score && snake.equals(that.snake) && obstacles.equals(that.obstacles) && foodPosition.equals(that.foodPosition) && directionCode == that.directionCode && gameLength == that.gameLength;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, userID, status, score, snake, obstacles, foodPosition, directionCode);
+        return Objects.hash(ID, userID, status, score, snake, obstacles, foodPosition, directionCode, gameLength);
     }
 
     public int getID() {
@@ -145,5 +148,13 @@ public class GameEntity {
 
     public void setDirectionCode(int directionCode) {
         this.directionCode = directionCode;
+    }
+
+    public long getGameLength() {
+        return gameLength;
+    }
+
+    public void setGameLength(long gameLength) {
+        this.gameLength = gameLength;
     }
 }

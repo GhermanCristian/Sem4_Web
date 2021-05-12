@@ -2,7 +2,6 @@ package ro.ubb.Lab9;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -55,13 +54,14 @@ public class GameService {
             newGame.getObstacles().add(this.generateObstacleCoordinates(newGame.getSnake(), newGame.getObstacles(), newGame.getFoodPosition()));
         }
         newGame.setDirectionCode(2); // workaround so that when the game starts automatically, the snake doesn't hit itself (it goes straight down)
+        newGame.setGameLength(System.currentTimeMillis());
         return newGame;
     }
 
     private void loadGamesFromDB() {
         try(Connection connection = DBConnection.initializeDB()) {
             Statement selectAll = connection.createStatement();
-            ResultSet allGames = selectAll.executeQuery("SELECT id, userID, status, score, snake, obstacles, food, directionCode FROM game");
+            ResultSet allGames = selectAll.executeQuery("SELECT id, userID, status, score, snake, obstacles, food, directionCode, gameLength FROM game");
             allGames.next();
             while (allGames.next()) {
                 GameEntity newGame = new GameEntity();
@@ -73,6 +73,7 @@ public class GameService {
                 newGame.setObstacles(allGames.getString(6));
                 newGame.setFoodPosition(allGames.getString(7));
                 newGame.setDirectionCode(allGames.getInt(8));
+                newGame.setGameLength(allGames.getLong(9));
                 this.games.add(newGame);
             }
             allGames.close();
@@ -86,7 +87,7 @@ public class GameService {
     private GameEntity addNewGameToDB(int userID) {
         GameEntity newGame = this.initializeNewGame(userID);
         try(Connection connection = DBConnection.initializeDB()) {
-            PreparedStatement insertNewGame = connection.prepareStatement("INSERT INTO game(userID, status, score, snake, obstacles, food, directionCode) VALUES (?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement insertNewGame = connection.prepareStatement("INSERT INTO game(userID, status, score, snake, obstacles, food, directionCode, gameLength) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             insertNewGame.setInt(1, newGame.getUserID());
             insertNewGame.setBoolean(2, newGame.getStatus());
             insertNewGame.setInt(3, newGame.getScore());
@@ -94,6 +95,7 @@ public class GameService {
             insertNewGame.setString(5, newGame.getObstaclesAsString());
             insertNewGame.setString(6, newGame.getFoodPosition().toString());
             insertNewGame.setInt(7, newGame.getDirectionCode());
+            insertNewGame.setLong(8, newGame.getGameLength());
             int affectedRows = insertNewGame.executeUpdate(); // if == 0 => error
             ResultSet generatedKeys = insertNewGame.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -116,19 +118,25 @@ public class GameService {
 
     private void updateGameInDB(GameEntity game) {
         try(Connection connection = DBConnection.initializeDB()) {
-            PreparedStatement updateGame = connection.prepareStatement("UPDATE game SET status = ?, score = ?, snake = ?, food = ?, directionCode = ? WHERE ID = ?");
+            PreparedStatement updateGame = connection.prepareStatement("UPDATE game SET status = ?, score = ?, snake = ?, food = ?, directionCode = ?, gameLength = ? WHERE ID = ?");
             updateGame.setBoolean(1, game.getStatus());
             updateGame.setInt(2, game.getScore());
             updateGame.setString(3, game.getSnakeAsString());
             updateGame.setString(4, game.getFoodPosition().toString());
             updateGame.setInt(5, game.getDirectionCode());
-            updateGame.setInt(6, game.getID());
+            updateGame.setLong(6, game.getGameLength());
+            updateGame.setInt(7, game.getID());
             updateGame.executeUpdate();
             updateGame.close();
         }
         catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    private void endGame(GameEntity currentGame) {
+        currentGame.setStatus(true);
+        currentGame.setGameLength(System.currentTimeMillis() - currentGame.getGameLength());
     }
 
     public GameEntity moveSnakeOneStep(int gameID) {
@@ -142,22 +150,21 @@ public class GameService {
 
         if (newHead.x < 0 || newHead.x >= GameEntity.BOARD_SIZE || newHead.y < 0 || newHead.y >= GameEntity.BOARD_SIZE ||
             currentGame.getSnake().contains(newHead) || currentGame.getObstacles().contains(newHead)) {
-            // end game
-            currentGame.setStatus(true);
-            return currentGame;
+            this.endGame(currentGame);
         }
-        if (newHead.equals(currentGame.getFoodPosition())) { // found food
+        else if (newHead.equals(currentGame.getFoodPosition())) { // found food
             currentGame.setScore(currentGame.getScore() + 1);
             currentGame.setFoodPosition(this.generateFoodCoordinates(currentGame.getSnake(), currentGame.getObstacles()));
+            currentGame.getSnake().add(0, newHead);
             // when on food we don't remove the tail because we 'increase' the snake by 1
         }
         else {
             // normally we should check that the snake length > 0, but that will never be the case
             int lastPosition = currentGame.getSnake().size() - 1;
             currentGame.getSnake().remove(lastPosition);
+            currentGame.getSnake().add(0, newHead);
         }
 
-        currentGame.getSnake().add(0, newHead);
         this.updateGameInDB(currentGame);
 
         return currentGame;
