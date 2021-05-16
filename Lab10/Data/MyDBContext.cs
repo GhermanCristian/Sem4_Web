@@ -11,5 +11,9 @@ namespace Lab10.Data {
         public MyDBContext(DbContextOptions<MyDBContext> options) : base(options) {
 
         }
+
+        public DbSet<Album> Album {
+            get; set;
+        }
     }
 }

@@ -10,5 +10,10 @@ namespace Lab10.Models {
         public string Artist { get; set; }
         public string Genre { get; set; }
         public int Sales { get; set; }
+
+        override
+        public string ToString() {
+            return this.ID.ToString() + " | " + this.Title + " | " + this.Artist + " | " + this.Genre + " | " + this.Sales.ToString() + "\n";
+        }
     }
 }
