@@ -15,5 +15,9 @@ namespace Lab10.Data {
         public DbSet<Album> Album {
             get; set;
         }
+
+        public DbSet<User> User {
+            get; set;
+        }
     }
 }

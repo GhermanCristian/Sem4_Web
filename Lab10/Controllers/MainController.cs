@@ -15,10 +15,8 @@ namespace Lab10.Controllers {
         public MainController(MyDBContext dbContext) {
             this.dBContext = dbContext;
         }
-        public IActionResult Index() {
-            return View();
-        }
 
+        [HttpGet]
         [EnableCors("Angular")]
         [Route("/lab10/getAllAlbums")]
         public IEnumerable<Object> getAllAlbums(string currentGenre, int currentPage, int elementsPerPage) {
@@ -32,10 +30,11 @@ namespace Lab10.Controllers {
             if (elementsPerPage == 0) {
                 elementsPerPage = 4;
             }
+            
             IQueryable<Album> filteredAlbums = this.dBContext.Album
                 .Where(album => album.Genre.Contains(currentGenre));
             List<Object> response = new();
-            
+
             response.Add(filteredAlbums.Count());
             response.AddRange(filteredAlbums
                 .OrderBy(album => album.ID)
