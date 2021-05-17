@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Lab10.Controllers {
     [ApiController]
@@ -18,9 +19,29 @@ namespace Lab10.Controllers {
             return View();
         }
 
-        [Route("/lab10/main")]
-        public IEnumerable<Album> getAllAlbums() {
-            return this.dBContext.Album.ToArray();
+        [Route("/lab10/getAllAlbums")]
+        public IEnumerable<Object> getAllAlbums(string currentGenre, int currentPage, int elementsPerPage) {
+            // pages are 1-indexed
+            // set some values in case no arguments are provided
+            if (currentGenre is null) {
+                currentGenre = "";
+            }
+            if (currentPage == 0) { // basically currentPage is null, but ints are not nullable
+                currentPage = 1;
+            }
+            if (elementsPerPage == 0) {
+                elementsPerPage = 4;
+            }
+            IQueryable<Album> filteredAlbums = this.dBContext.Album
+                .Where(album => album.Genre.Contains(currentGenre));
+            List<Object> response = new();
+            
+            response.Add(filteredAlbums.Count());
+            response.AddRange(filteredAlbums
+                .OrderBy(album => album.ID)
+                .Skip((currentPage - 1) * elementsPerPage)
+                .Take(elementsPerPage)); // basically slice the result to get only the required page);*/
+            return response;
         }
     }
 }
