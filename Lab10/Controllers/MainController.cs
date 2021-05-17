@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
+using Microsoft.AspNetCore.Cors;
 
 namespace Lab10.Controllers {
     [ApiController]
@@ -19,9 +19,9 @@ namespace Lab10.Controllers {
             return View();
         }
 
+        [EnableCors("Angular")]
         [Route("/lab10/getAllAlbums")]
         public IEnumerable<Object> getAllAlbums(string currentGenre, int currentPage, int elementsPerPage) {
-            // pages are 1-indexed
             // set some values in case no arguments are provided
             if (currentGenre is null) {
                 currentGenre = "";
@@ -39,7 +39,7 @@ namespace Lab10.Controllers {
             response.Add(filteredAlbums.Count());
             response.AddRange(filteredAlbums
                 .OrderBy(album => album.ID)
-                .Skip((currentPage - 1) * elementsPerPage)
+                .Skip((currentPage - 1) * elementsPerPage) // pages are 1-indexed
                 .Take(elementsPerPage)); // basically slice the result to get only the required page);*/
             return response;
         }

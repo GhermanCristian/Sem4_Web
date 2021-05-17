@@ -25,6 +25,12 @@ namespace Lab10 {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
+            services.AddCors(options => {
+                options.AddPolicy(name: "Angular",
+                    builder => {
+                        builder.WithOrigins("http://localhost:4200").WithMethods("GET").AllowAnyHeader();
+                    });
+            });
             services.AddDbContext<MyDBContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("WPDatabase"))); // declared in appsettings json
         }
@@ -38,7 +44,7 @@ namespace Lab10 {
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
-
+            app.UseCors();
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
