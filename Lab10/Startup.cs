@@ -28,7 +28,7 @@ namespace Lab10 {
             services.AddCors(options => {
                 options.AddPolicy(name: "Angular",
                     builder => {
-                        builder.WithOrigins("http://localhost:4200").WithMethods("GET").AllowAnyHeader();
+                        builder.WithOrigins("http://localhost:4200").WithMethods("GET", "POST").AllowAnyHeader();
                     });
             });
             services.AddDbContext<MyDBContext>(options =>

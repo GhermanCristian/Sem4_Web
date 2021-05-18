@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using Newtonsoft.Json;
 
 namespace Lab10.Controllers {
     [ApiController]
@@ -19,7 +20,7 @@ namespace Lab10.Controllers {
         [HttpGet]
         [EnableCors("Angular")]
         [Route("/lab10/getAllAlbums")]
-        public IEnumerable<Object> getAllAlbums(string currentGenre, int currentPage, int elementsPerPage) {
+        public IEnumerable<Object> GetAllAlbums(string currentGenre, int currentPage, int elementsPerPage) {
             // set some values in case no arguments are provided
             if (currentGenre is null) {
                 currentGenre = "";
@@ -34,13 +35,32 @@ namespace Lab10.Controllers {
             IQueryable<Album> filteredAlbums = this.dBContext.Album
                 .Where(album => album.Genre.Contains(currentGenre));
             List<Object> response = new();
-
+            
             response.Add(filteredAlbums.Count());
             response.AddRange(filteredAlbums
                 .OrderBy(album => album.ID)
                 .Skip((currentPage - 1) * elementsPerPage) // pages are 1-indexed
-                .Take(elementsPerPage)); // basically slice the result to get only the required page);*/
+                .Take(elementsPerPage)); // basically slice the result to get only the required page)
             return response;
+        }
+
+        [HttpPost]
+        [EnableCors("Angular")]
+        [Route("/lab10/login")]
+        public string Login(string username, string password) {
+            IQueryable<User> currentUser = this.dBContext.User
+                .Where(user => user.Username == username && user.Password == password);
+            // i have absolutely no idea why it crashes when we don't use ToList
+            if (currentUser.ToList().Count() == 1) { // correct login
+                return JsonConvert.SerializeObject(new {
+                    status = "valid"
+                });
+            }
+            else {
+                return JsonConvert.SerializeObject(new {
+                    status = "invalid"
+                });
+            }
         }
     }
 }
