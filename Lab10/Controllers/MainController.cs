@@ -47,9 +47,9 @@ namespace Lab10.Controllers {
         [HttpPost]
         [EnableCors("Angular")]
         [Route("/lab10/login")]
-        public string Login(string username, string password) {
+        public string Login([FromBody] UserDTO NewUser) {
             IQueryable<User> currentUser = this.dBContext.User
-                .Where(user => user.Username == username && user.Password == password);
+                .Where(user => user.Username == NewUser.Username && user.Password == NewUser.Password);
             // i have absolutely no idea why it crashes when we don't use ToList
             if (currentUser.ToList().Count() == 1) { // correct login
                 return JsonConvert.SerializeObject(new {
