@@ -48,6 +48,12 @@ namespace Lab10.Controllers {
             return response;
         }
 
+        private void initialiseSession() {
+            HttpContext.Session.SetString("loggedIn", "true");
+            // list[albumID] = albumCount
+            HttpContext.Session.SetString("shoppingCart", JsonConvert.SerializeObject(new Dictionary<int, int>()));
+        }
+
         [HttpPost]
         [EnableCors("Angular")]
         [Route("/lab10/login")]
@@ -56,7 +62,7 @@ namespace Lab10.Controllers {
                 .Where(user => user.Username == NewUser.Username && user.Password == NewUser.Password);
             // i have absolutely no idea why it crashes when we don't use ToList
             if (currentUser.ToList().Count() == 1) { // correct login
-                HttpContext.Session.SetString("loggedIn", "true");
+                this.initialiseSession();
                 return JsonConvert.SerializeObject(new {
                     status = "valid"
                 });
@@ -66,6 +72,26 @@ namespace Lab10.Controllers {
                     status = "invalid"
                 });
             }
+        }
+
+        [HttpGet]
+        [EnableCors("Angular")]
+        [Route("/lab10/addToShoppingCart")]
+        public string AddToShoppingCart(int albumID, int itemCount) {
+            if (HttpContext.Session.GetString("loggedIn") != "true") {
+                return JsonConvert.SerializeObject(new {
+                    status = "invalid"
+                });
+            }
+            Dictionary<int, int> shoppingCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(HttpContext.Session.GetString("shoppingCart"));
+            if (shoppingCart.ContainsKey(albumID)) {
+                shoppingCart[albumID] += itemCount;
+            }
+            else {
+                shoppingCart[albumID] = itemCount;
+            }
+
+            return shoppingCart.Values.ToList().Sum().ToString();
         }
     }
 }
