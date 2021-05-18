@@ -6,11 +6,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace Lab10.Controllers {
-    [ApiController]
-    [Route("[controller]")]
     public class MainController : Controller {
         private readonly MyDBContext dBContext;
         public MainController(MyDBContext dbContext) {
@@ -21,6 +20,12 @@ namespace Lab10.Controllers {
         [EnableCors("Angular")]
         [Route("/lab10/getAllAlbums")]
         public IEnumerable<Object> GetAllAlbums(string currentGenre, int currentPage, int elementsPerPage) {
+            if (HttpContext.Session.GetString("loggedIn") != "true") {
+                List<Object> invalidResponse = new();
+                invalidResponse.Add("invalid");
+                return invalidResponse;
+            }
+
             // set some values in case no arguments are provided
             if (currentGenre is null) {
                 currentGenre = "";
@@ -31,11 +36,10 @@ namespace Lab10.Controllers {
             if (elementsPerPage == 0) {
                 elementsPerPage = 4;
             }
-            
             IQueryable<Album> filteredAlbums = this.dBContext.Album
                 .Where(album => album.Genre.Contains(currentGenre));
+
             List<Object> response = new();
-            
             response.Add(filteredAlbums.Count());
             response.AddRange(filteredAlbums
                 .OrderBy(album => album.ID)
@@ -52,6 +56,7 @@ namespace Lab10.Controllers {
                 .Where(user => user.Username == NewUser.Username && user.Password == NewUser.Password);
             // i have absolutely no idea why it crashes when we don't use ToList
             if (currentUser.ToList().Count() == 1) { // correct login
+                HttpContext.Session.SetString("loggedIn", "true");
                 return JsonConvert.SerializeObject(new {
                     status = "valid"
                 });
