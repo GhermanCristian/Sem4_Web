@@ -90,8 +90,38 @@ namespace Lab10.Controllers {
             else {
                 shoppingCart[albumID] = itemCount;
             }
+            HttpContext.Session.SetString("shoppingCart", JsonConvert.SerializeObject(shoppingCart));
 
-            return shoppingCart.Values.ToList().Sum().ToString();
+            return shoppingCart.Values.Sum().ToString();
+        }
+
+        [HttpGet]
+        [EnableCors("Angular")]
+        [Route("/lab10/getAlbumsFromShoppingCart")]
+        public IEnumerable<Object> GetAlbumsFromShoppingCart(int currentPage, int elementsPerPage) {
+            if (HttpContext.Session.GetString("loggedIn") != "true") {
+                if (HttpContext.Session.GetString("loggedIn") != "true") {
+                    List<Object> invalidResponse = new();
+                    invalidResponse.Add("invalid");
+                    return invalidResponse;
+                }
+            }
+
+            List<Object> response = new();
+            Dictionary<int, int> shoppingCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(HttpContext.Session.GetString("shoppingCart"));
+            int positionInShoppingCart = 1;
+            shoppingCart.Keys.ToList().ForEach(albumID => {
+                if ((currentPage - 1) * elementsPerPage < positionInShoppingCart &&
+                    positionInShoppingCart <= currentPage * elementsPerPage) {
+                    Album currentAlbum = this.dBContext.Album.Where(album => album.ID == albumID).First();
+                    response.Add(JsonConvert.SerializeObject(new {
+                        currentAlbum,
+                        TimesInCart = shoppingCart[albumID],
+                    }));
+                } // select just the elements from the current page
+                positionInShoppingCart++;
+            });
+            return response;
         }
     }
 }
