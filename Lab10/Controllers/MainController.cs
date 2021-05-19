@@ -123,5 +123,32 @@ namespace Lab10.Controllers {
             });
             return response;
         }
+
+        [HttpGet]
+        [EnableCors("Angular")]
+        [Route("/lab10/removeFromShoppingCart")]
+        public string RemoveFromShoppingCart(int modifiedElementID, string removeOne) {
+            if (HttpContext.Session.GetString("loggedIn") != "true") {
+                return JsonConvert.SerializeObject(new {
+                    status = "invalid"
+                });
+            }
+
+            Dictionary<int, int> shoppingCart = JsonConvert.DeserializeObject<Dictionary<int, int>>(HttpContext.Session.GetString("shoppingCart"));
+            if (removeOne == "true") {
+                shoppingCart[modifiedElementID]--;
+            }
+            else {
+                shoppingCart[modifiedElementID] = 0;
+            }
+
+            if (shoppingCart[modifiedElementID] <= 0) {
+                shoppingCart.Remove(modifiedElementID);
+            }
+            HttpContext.Session.SetString("shoppingCart", JsonConvert.SerializeObject(shoppingCart));
+            return JsonConvert.SerializeObject(new {
+                status = "valid"
+            });
+        }
     }
 }
