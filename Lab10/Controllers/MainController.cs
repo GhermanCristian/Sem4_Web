@@ -49,8 +49,9 @@ namespace Lab10.Controllers {
         }
 
         private void initialiseSession() {
+            HttpContext.Session.Clear(); // this doesn't delete the cookie; how do I do that ?
             HttpContext.Session.SetString("loggedIn", "true");
-            // list[albumID] = albumCount
+            // basically shoppingCart[albumID] = albumCount
             HttpContext.Session.SetString("shoppingCart", JsonConvert.SerializeObject(new Dictionary<int, int>()));
         }
 
@@ -72,6 +73,16 @@ namespace Lab10.Controllers {
                     status = "invalid"
                 });
             }
+        }
+
+        [HttpGet]
+        [EnableCors("Angular")]
+        [Route("/lab10/logout")]
+        public string Logout() {
+            HttpContext.Session.Clear();
+            return JsonConvert.SerializeObject(new {
+                status = "valid"
+            });
         }
 
         [HttpGet]
