@@ -5,9 +5,11 @@ import {HttpClientModule} from "@angular/common/http";
 import { AlbumComponent } from './album/album.component';
 import { MainAlbumListComponent } from './album/main-album-list/main-album-list.component';
 import {AppRoutingModule} from "./app-routing.module";
-import {AlbumService} from "./album/shared/album.service";
+import {AlbumService} from "./shared/album.service";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ShoppingCartComponent } from './album/shopping-cart/shopping-cart.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginService } from './shared/login.service';
 
 @NgModule({
   declarations: [
@@ -15,6 +17,7 @@ import { ShoppingCartComponent } from './album/shopping-cart/shopping-cart.compo
     AlbumComponent,
     MainAlbumListComponent,
     ShoppingCartComponent,
+    LoginPageComponent,
   ],
     imports: [
         BrowserModule,
@@ -22,8 +25,8 @@ import { ShoppingCartComponent } from './album/shopping-cart/shopping-cart.compo
         HttpClientModule,
         ReactiveFormsModule,
         FormsModule,
-    ],
-  providers: [AlbumService],
+  ],
+  providers: [AlbumService, LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

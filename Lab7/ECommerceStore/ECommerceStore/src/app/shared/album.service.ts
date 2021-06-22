@@ -4,10 +4,10 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class AlbumService {
-  private allAlbumsURL = "http://localhost/lab8/getAlbums.php";
-  private shoppingCartURL = "http://localhost/lab8/getAlbumsFromShoppingCart.php";
-  private addToShoppingCartURL = "http://localhost/lab8/addToShoppingCart.php";
-  private removeFromShoppingCartURL = "http://localhost/lab8/removeFromShoppingCart.php";
+  private allAlbumsURL = "https://localhost:5001/lab10/getAllAlbums";
+  private shoppingCartURL = "https://localhost:5001/lab10/getAlbumsFromShoppingCart";
+  private addToShoppingCartURL = "https://localhost:5001/lab10/addToShoppingCart";
+  private removeFromShoppingCartURL = "https://localhost:5001/lab10/removeFromShoppingCart";
 
   constructor(private httpClient: HttpClient) {
   }
@@ -18,7 +18,8 @@ export class AlbumService {
         "currentPage": currentPage,
         "elementsPerPage": albumsPerPage,
         "currentGenre": currentGenre
-      }
+      },
+      withCredentials: true,
     });
   }
 
@@ -35,7 +36,7 @@ export class AlbumService {
   addAlbumToShoppingCart(albumID, quantity): Observable<number> {
     return this.httpClient.get<number>(this.addToShoppingCartURL, {
       params: {
-        "modifiedElementID": albumID,
+        "albumID": albumID,
         "itemCount": quantity
       },
       withCredentials: true,

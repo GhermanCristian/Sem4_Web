@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Album} from "../shared/album.model";
-import {AlbumService} from "../shared/album.service";
+import {Album} from "../../shared/album.model";
+import {AlbumService} from "../../shared/album.service";
 import {FormBuilder} from "@angular/forms";
-import * as constants from "../shared/constants";
+import * as constants from "../../shared/constants";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-album-list',
@@ -16,7 +17,7 @@ export class MainAlbumListComponent implements OnInit {
   currentPage: any;
   quantities: string[];
 
-  constructor(private albumService: AlbumService, private formBuilder: FormBuilder) {
+  constructor(private albumService: AlbumService, private formBuilder: FormBuilder, private router: Router) {
     this.currentPage = 1;
     this.genreForm = this.formBuilder.group({
       genre: ''
@@ -37,6 +38,7 @@ export class MainAlbumListComponent implements OnInit {
   }
 
   addToCart(albumID, posOnPage): void {
+    console.log(albumID);
     let quantity = 1; // default if no value is provided in the form
     if (this.quantities[posOnPage] !== '') {
       quantity = parseInt(this.quantities[posOnPage]);
@@ -49,7 +51,11 @@ export class MainAlbumListComponent implements OnInit {
   }
 
   parseResponse(response) {
-    this.albumCount = response[0]['count'];
+    if (response[0] === "invalid") {
+      this.router.navigate(['']);
+      return;
+    }
+    this.albumCount = response[0]; // for the php backend, response[0]['count']
     response.shift();
     this.albums = response;
   }

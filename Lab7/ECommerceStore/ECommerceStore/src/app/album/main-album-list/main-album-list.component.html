@@ -6,12 +6,12 @@
 
 <ul class="albums">
   <li *ngFor="let album of albums; index as i ;trackBy:trackByIndex">
-    <h2>{{album.ID}}</h2>
-    <h3>{{album.Title}}</h3>
-    <p>{{album.Artist}}</p>
-    <p>{{album.Genre}}</p>
-    <p>{{album.Sales}}</p>
-    <button (click)="addToCart(album.ID, i)">Add to cart</button>
+    <h2>{{album.id}}</h2> <!--for the php backend, ID + all others start with a capital-->
+    <h3>{{album.title}}</h3>
+    <p>{{album.artist}}</p>
+    <p>{{album.genre}}</p>
+    <p>{{album.sales}}</p>
+    <button (click)="addToCart(album.id, i)">Add to cart</button>
     <input type="text" [(ngModel)]="quantities[i]">
   </li>
 </ul>

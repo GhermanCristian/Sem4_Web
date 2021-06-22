@@ -1,1 +1,10 @@
-<app-main-album-list></app-main-album-list>
+<h1>{{title}}</h1>
+
+<nav class="centerNav">
+  <a routerLink="/main" routerLinkActive="active">Main menu</a>
+  <a routerLink="/main/albums" routerLinkActive="active">Albums</a>
+  <a routerLink="/main/shoppingCart" routerLinkActive="active">Shopping cart</a>
+  <button (click)="logout()">Logout</button>
+</nav>
+
+<router-outlet></router-outlet>

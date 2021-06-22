@@ -3,14 +3,14 @@
 <div *ngIf="albums.length > 0; else emptyShoppingCart">
   <ul class="albums">
     <li *ngFor="let album of albums">
-      <h2>{{album.ID}}</h2>
-      <h3>{{album.Title}}</h3>
-      <p>{{album.Artist}}</p>
-      <p>{{album.Genre}}</p>
-      <p>{{album.Sales}}</p>
+      <h2>{{album.currentAlbum.ID}}</h2>
+      <h3>{{album.currentAlbum.Title}}</h3>
+      <p>{{album.currentAlbum.Artist}}</p>
+      <p>{{album.currentAlbum.Genre}}</p>
+      <p>{{album.currentAlbum.Sales}}</p>
       <p>Quantity: {{album['TimesInCart']}}</p>
-      <button (click)="removeOneOccurrenceFromCart(album.ID)">Remove 1 from cart</button>
-      <button (click)="removeAllOccurrencesFromCart(album.ID)">Remove all from cart</button>
+      <button (click)="removeOneOccurrenceFromCart(album.currentAlbum.ID)">Remove 1 from cart</button>
+      <button (click)="removeAllOccurrencesFromCart(album.currentAlbum.ID)">Remove all from cart</button>
     </li>
   </ul>
 </div>
