@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="mainScript.js" type="module"></script>
+</head>
+<body>
+    <span id="IDSpan">You are user 0</span>
+    <br>
+    <button id="logoutButton">Logout</button>
+    <hr>
+    <label>Name :</label>
+    <input id="nameInput" type="text" name="username"/>
+    <br>
+    <label>Description :</label>
+    <input id="descriptionInput" type="text" name="description"/>
+    <br>
+    <label>Value :</label>
+    <input id="valueInput" type="text" name="value"/>
+    <br>
+    <br>
+    <button id="addAssetButton">Add asset to temp list</button>
+    <button id="addAllAssetsButton">Add all assets to DB</button>
+    <br>
+    <br>
+    <span id="assetCount">Currently, there are 0 assets in the temp list</span>
+    <br>
+    <br>
+    <hr>
+    <div id="assetList"></div>
+</body>
+</html>
