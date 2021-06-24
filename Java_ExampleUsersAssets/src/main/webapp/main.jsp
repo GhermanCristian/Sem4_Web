@@ -1,8 +1,18 @@
+<%@ page import="org.json.simple.JSONObject" %>
+<%@ page import="java.util.ArrayList" %>
 <%
     String isLoggedIn = (String) session.getAttribute("login");
     if (isLoggedIn == null || !isLoggedIn.equals("true")) {
         response.sendRedirect("loginError.html");
         return;
+    }
+%>
+<%!
+    public String getList(HttpSession session) {
+        if (session.getAttribute("tempAssets") != null) {
+            return ((ArrayList<JSONObject>) session.getAttribute("tempAssets")).stream().map(JSONObject::toString).reduce("", (a, b) -> a + b);
+        }
+        return "";
     }
 %>
 <html lang="en">
@@ -17,6 +27,12 @@
     <br>
     <a href="logout.jsp">Logout</a>
     <br>
+    <div>user = <%=
+        session.getAttribute("userID")
+    %></div>
+    <div>list = <%=
+        getList(session)
+    %></div>
     <form id="addAssetForm" action="mainServlet" method="POST">
         <input type="text" name="name" autocomplete="off" placeholder="Name">
         <br>
