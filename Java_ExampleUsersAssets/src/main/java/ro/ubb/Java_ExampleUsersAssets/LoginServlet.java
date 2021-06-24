@@ -60,15 +60,20 @@ public class LoginServlet extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
+        RequestDispatcher rd;
         if (this.areCredentialsValid(request.getParameter("username"), request.getParameter("password"))) {
             HttpSession session = request.getSession();
             session.setAttribute("login", "true");
             session.setAttribute("userID", this.getUserID(request.getParameter("username"), request.getParameter("password")));
             session.setAttribute("username", request.getParameter("username"));
-            response.sendRedirect("main.jsp");
+            rd = request.getRequestDispatcher("main.jsp");
+            //response.sendRedirect("main.jsp");
+            // both these versions work, I just left them here for posterity
         }
         else {
-            response.sendRedirect("loginError.html");
+            rd = request.getRequestDispatcher("loginError.html");
+            //response.sendRedirect("loginError.html");
         }
+        rd.forward(request, response);
     }
 }

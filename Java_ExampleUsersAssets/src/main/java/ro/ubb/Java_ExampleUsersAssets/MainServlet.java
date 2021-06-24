@@ -1,6 +1,9 @@
 package ro.ubb.Java_ExampleUsersAssets;
 
 import org.json.simple.JSONObject;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -78,7 +81,7 @@ public class MainServlet extends HttpServlet {
         }
     }
 
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         if (request.getSession().getAttribute("login") == null || !request.getSession().getAttribute("login").equals("true")) {
             return; // request from someone that is not authenticated
         }
@@ -86,6 +89,7 @@ public class MainServlet extends HttpServlet {
         if (request.getParameter("name") != null &&
                 request.getParameter("description") != null &&
                 request.getParameter("value") != null) {
+            RequestDispatcher rd;
             HttpSession session = request.getSession();
             if (session.getAttribute("tempAssets") == null) {
                 session.setAttribute("tempAssets", new ArrayList<JSONObject>());
@@ -98,6 +102,8 @@ public class MainServlet extends HttpServlet {
             newAsset.put("userID", session.getAttribute("userID"));
             tempAssets.add(newAsset);
             session.setAttribute("tempAssets", tempAssets);
+            rd = request.getRequestDispatcher("main.jsp");
+            rd.forward(request, response);
         }
 
         else if (request.getParameter("addAssetsToDB") != null && request.getParameter("addAssetsToDB").equals("true")) {

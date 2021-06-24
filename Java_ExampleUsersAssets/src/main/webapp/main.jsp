@@ -17,7 +17,7 @@
     <br>
     <a href="logout.jsp">Logout</a>
     <br>
-    <form id="addAssetForm" action="mainServlet" method="POST" target="_blank">
+    <form id="addAssetForm" action="mainServlet" method="POST">
         <input type="text" name="name" autocomplete="off" placeholder="Name">
         <br>
         <input type="text" name="description" autocomplete="off" placeholder="Description">
